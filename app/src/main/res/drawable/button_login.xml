@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="40dp"
+    android:padding="10dp"
+    android:shape="rectangle" >
+
+    <!-- you can use any color you want I used here gray color -->
+    <!-- <solid android:color="@color/GreenYellow" /> -->
+
+    <gradient
+        android:startColor="@color/LightSteelBlue"
+        android:endColor="@color/LightBlue"
+        android:angle="-270" />
+
+
+    <corners
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp" />
+
+</shape>
