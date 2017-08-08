@@ -44,7 +44,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="USER ID"
-                    android:inputType="textCapCharacters"
                     android:padding="5dp"
                     android:selectAllOnFocus="true"
                     android:textSize="20dp" />
