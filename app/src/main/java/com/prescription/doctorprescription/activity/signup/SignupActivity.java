@@ -1,4 +1,4 @@
-package com.prescription.doctorprescription.signup;
+package com.prescription.doctorprescription.activity.signup;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

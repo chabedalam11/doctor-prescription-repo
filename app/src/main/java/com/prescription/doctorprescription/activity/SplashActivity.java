@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.prescription.doctorprescription.R;
-import com.prescription.doctorprescription.login.LoginActivity;
+import com.prescription.doctorprescription.activity.login.LoginActivity;
 
 public class SplashActivity extends Activity implements View.OnClickListener {
 

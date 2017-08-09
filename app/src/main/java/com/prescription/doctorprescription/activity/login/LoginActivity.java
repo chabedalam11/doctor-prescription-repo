@@ -1,6 +1,7 @@
-package com.prescription.doctorprescription.login;
+package com.prescription.doctorprescription.activity.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.activity.WelcomeActivity;
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
@@ -63,9 +65,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     List<DoctorLogin> info = response.body().data;
                     Log.d(TAG, "doctorInfo :: " + info);
                     if (info.size() > 0) {
-                        for (int i = 0; i < info.size(); i++) {
+                        /*for (int i = 0; i < info.size(); i++) {
                             Log.d(TAG,info.get(i).getT_doc_email());
-                        }
+                        }*/
+                        Intent friendsListActivityIntent = new Intent(context, WelcomeActivity.class);
+                        startActivity(friendsListActivityIntent);
                     }else {
                         Toast.makeText(context, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
