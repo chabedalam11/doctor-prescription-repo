@@ -1,0 +1,7 @@
+// localhost:3306/prescription","root","apcl123456"
+
+
+//===============Doctor Login===========
+1.http://100.43.0.39:6006/prescription/doctorLogin?t_doc_email=@gmail.com&t_doc_passphrase=0000
+
+

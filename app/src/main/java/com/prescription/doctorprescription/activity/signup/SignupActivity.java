@@ -1,4 +1,4 @@
-package com.prescription.doctorprescription.signup;
+package com.prescription.doctorprescription.activity.signup;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
-import com.prescription.doctorprescription.login.LoginActivity;
+import com.prescription.doctorprescription.activity.login.LoginActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

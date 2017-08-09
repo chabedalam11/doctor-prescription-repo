@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.prescription.doctorprescription.R;
-import com.prescription.doctorprescription.login.LoginActivity;
+import com.prescription.doctorprescription.activity.login.LoginActivity;
 
 public class SplashActivity extends Activity implements View.OnClickListener {
 
@@ -38,8 +38,8 @@ public class SplashActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgIV1:
-                Intent friendsListActivityIntent = new Intent(context, LoginActivity.class);
-                startActivity(friendsListActivityIntent);
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }
