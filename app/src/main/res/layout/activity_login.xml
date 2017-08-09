@@ -16,8 +16,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:gravity="center_horizontal"
-            android:text="@string/app_title"
+            android:text="Doctor Login"
             android:textColor="@color/Blue"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -26,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:alpha="0.75"
             android:orientation="vertical"
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/button_login"
-                    android:onClick="clear"
+                    android:textColor="@color/Black"
                     android:text="LOGIN"
                     android:textSize="20sp" />
 
