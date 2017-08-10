@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
 public class WelcomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Context context;
+    PrescriptionMemories memory;
     final String TAG = "WelcomeActivity";
     //init webservice
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
@@ -32,6 +34,7 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
 
     private void initialize() {
         context=WelcomeActivity.this;
+        memory = new PrescriptionMemories(getApplicationContext());
 
         //Navigation Drawer init
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -42,8 +45,8 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         tvDoctorName = (TextView) headerView.findViewById(R.id.tvDoctorName);
         tvDoctorEmail = (TextView) headerView.findViewById(R.id.tvDoctorEmail);
         //set value
-        tvDoctorName.setText("Dr. Kamal Uddin");
-        tvDoctorEmail.setText("kamal@gamil.com");
+        tvDoctorName.setText(memory.getPref(memory.KEY_DOC_NAME));
+        tvDoctorEmail.setText(memory.getPref(memory.KEY_DOC_EMAIL));
     }
 
 

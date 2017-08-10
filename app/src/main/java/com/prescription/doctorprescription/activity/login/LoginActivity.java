@@ -15,6 +15,7 @@ import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.activity.WelcomeActivity;
 import com.prescription.doctorprescription.activity.signup.SignupActivity;
 import com.prescription.doctorprescription.utils.AlartFactory;
+import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     Context context;
+    PrescriptionMemories memory;
     final String TAG = "LoginActivity";
     //init webservice
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initialize() {
         context = LoginActivity.this;
+        memory = new PrescriptionMemories(getApplicationContext());
         //Init Ui component
         edtUserId=(EditText)findViewById(R.id.edtUserId);
         edtPass=(EditText)findViewById(R.id.edtPass);
@@ -65,6 +68,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intentSignUp);
             }
         });
+
+        //intent parameter that pass from signUp Activity
+        String userName = getIntent().getStringExtra("userName");
+        String pass = getIntent().getStringExtra("password");
+        if (userName !=null && pass != null){
+            if(PrescriptionUtils.isInternetConnected(context)){
+                getDoctorLoginInfo(userName,pass);
+            }else {
+                Toast.makeText(context, "Check you internet connection", Toast.LENGTH_SHORT).show();
+                AlartFactory.showNetworkErrorAlertDialog(context, "No Internet Connection", "Please check your internet connection", false);
+            }
+        }
     }
 
 
@@ -81,11 +96,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     List<DoctorLogin> info = response.body().data;
                     Log.d(TAG, "doctorInfo :: " + info);
                     if (info.size() > 0) {
-                        /*for (int i = 0; i < info.size(); i++) {
-                            Log.d(TAG,info.get(i).getT_doc_email());
-                        }*/
-                        Intent friendsListActivityIntent = new Intent(context, WelcomeActivity.class);
-                        startActivity(friendsListActivityIntent);
+                       //save user information in memory
+                        memory.putPref(memory.KEY_DOC_ID, info.get(0).getT_doc_id());
+                        memory.putPref(memory.KEY_DOC_NAME, info.get(0).getT_doc_first_name());
+                        memory.putPref(memory.KEY_DOC_PHONE1, info.get(0).getT_doc_phone1());
+                        memory.putPref(memory.KEY_DOC_PHONE2, info.get(0).getT_doc_phone2());
+                        memory.putPref(memory.KEY_DOC_EMAIL, info.get(0).getT_doc_email());
+
+                        //now go to welcome activity
+                        Intent welcomeIntent = new Intent(context, WelcomeActivity.class);
+                        welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(welcomeIntent);
                     }else {
                         Toast.makeText(context, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }

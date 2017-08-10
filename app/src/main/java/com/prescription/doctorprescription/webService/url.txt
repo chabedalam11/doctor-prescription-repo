@@ -4,4 +4,5 @@
 //===============Doctor Login===========
 1.http://100.43.0.39:6006/prescription/doctorLogin?t_doc_email=@gmail.com&t_doc_passphrase=0000
 
-
+//===============Doctor SignUp===========
+1.http://100.43.0.39:6006/prescription/insertSignUpInfo?t_doc_first_name=Md&t_doc_middle_name=kamal&t_doc_last_name=uddin&t_doc_birth_day=14-1-2015&t_doc_gender=male&t_doc_nation=bd&t_doc_phone1=123&t_doc_phone2=123&t_doc_phone3=123&t_doc_passphrase=0000&t_doc_email=abcd@gmail.com&t_doc_address=Mirpur
