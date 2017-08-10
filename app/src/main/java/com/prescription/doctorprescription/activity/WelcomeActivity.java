@@ -1,6 +1,7 @@
 package com.prescription.doctorprescription.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
+import com.prescription.doctorprescription.profile.ClinicInformationActivity;
+import com.prescription.doctorprescription.profile.ClinicSetupActivity;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
@@ -57,10 +60,15 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_profile) {
+            Intent intent = new Intent(context, ClinicSetupActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent(context, ClinicInformationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

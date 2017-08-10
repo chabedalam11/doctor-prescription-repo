@@ -5,6 +5,17 @@
     <string name="sp">Select One</string>
     <string name="action_settings">Settings</string>
 
+
+    <string-array name="weekDay">
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+
     <string-array name="all_languages">
         <item>All Languages</item>
         <item>ABAP</item>
@@ -300,4 +311,7 @@
     </string-array>
     <string name="title_activity_prescription_analysis_menu">PrescriptionAnalysisMenuActivity
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
