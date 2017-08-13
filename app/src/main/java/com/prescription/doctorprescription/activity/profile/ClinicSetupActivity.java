@@ -1,4 +1,4 @@
-package com.prescription.doctorprescription.profile;
+package com.prescription.doctorprescription.activity.profile;
 
 import android.content.Context;
 import android.content.DialogInterface;

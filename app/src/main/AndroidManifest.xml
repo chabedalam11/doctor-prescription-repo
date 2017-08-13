@@ -34,9 +34,8 @@
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".profile.ClinicSetupActivity" />
-        <activity android:name=".profile.ClinicInformationActivity" />
-        <activity android:name=".profile.ClinicProfileDetailActivity"></activity>
+        <activity android:name=".activity.profile.ClinicSetupActivity" />
+        <activity android:name=".activity.profile.DoctorProfileActivity" />
     </application>
 
 </manifest>

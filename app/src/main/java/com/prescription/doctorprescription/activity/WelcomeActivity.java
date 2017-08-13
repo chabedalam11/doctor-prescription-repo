@@ -13,8 +13,7 @@ import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
-import com.prescription.doctorprescription.profile.ClinicInformationActivity;
-import com.prescription.doctorprescription.profile.ClinicSetupActivity;
+import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
@@ -61,14 +60,17 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            Intent intent = new Intent(context, ClinicSetupActivity.class);
+            /*Intent intent = new Intent(context, ClinicSetupActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(intent);*/
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(context, ClinicInformationActivity.class);
+
+            Intent intent = new Intent(context, DoctorProfileActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
+        } else if (id == R.id.nav_gallery) {
+
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

@@ -1,4 +1,4 @@
-package com.prescription.doctorprescription.profile;
+package com.prescription.doctorprescription.activity.profile;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.adapter.tab.DoctorPagerAdapter;
 
-public class ClinicInformationActivity extends AppCompatActivity {
+public class DoctorProfileActivity extends AppCompatActivity {
 
     ViewPager doctorPager;
     PagerSlidingTabStrip tabs;
@@ -16,7 +17,7 @@ public class ClinicInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clinic_information);
+        setContentView(R.layout.activity_doctor_profile);
 
         intialize();
     }

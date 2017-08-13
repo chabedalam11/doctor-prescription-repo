@@ -1,4 +1,4 @@
-package com.prescription.doctorprescription.profile;
+package com.prescription.doctorprescription.fragment.profile;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.activity.profile.ClinicSetupActivity;
 import com.prescription.doctorprescription.adapter.profile.ClinicListAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_clinic_list, container, false);
+        View view= inflater.inflate(R.layout.fragment_clinic_setup, container, false);
         context = getActivity();
 
         clinicListView = (ListView) view.findViewById(R.id.clinicListView);
@@ -69,7 +70,7 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
                         /*Intent call = new Intent(Intent.ACTION_CALL);
                         call.setData(Uri.parse("tel:"+profile.getContactNo()));
                         startActivity(call);*/
-                        Intent intent = new Intent(context, ClinicProfileDetailActivity.class);
+                        Intent intent = new Intent(context, ClinicSetupActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;

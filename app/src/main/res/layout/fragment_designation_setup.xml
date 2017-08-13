@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.prescription.doctorprescription.profile.ClinicListFragment">
+    tools:context=".fragment.profile.ClinicListFragment">
 
     <ListView
         android:id="@+id/clinicListView"
