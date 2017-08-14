@@ -19,15 +19,15 @@ import com.prescription.doctorprescription.adapter.profile.ClinicListAdapter;
 
 import java.util.ArrayList;
 
-public class ClinicListFragment extends Fragment implements  View.OnClickListener{
+public class ClinicSetupFragment extends Fragment implements  View.OnClickListener{
 
-    final String TAG = "ClinicListFragment";
+    final String TAG = "ClinicSetupFragment";
     Context context;
     boolean hardwareBackControll;
 
     ListView clinicListView;
     LinearLayout newClinic;
-    private String[] actionList={"View Detail","Remove Clinic"};
+    private String[] actionList={"View Details","Remove Clinic"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +97,7 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
                 }
             }
         });
-        builder.setTitle("Choose an action");
+        builder.setTitle("Choose An Action");
         builder.create().show();
 }
 

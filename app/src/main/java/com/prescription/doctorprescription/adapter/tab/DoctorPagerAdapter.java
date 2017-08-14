@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.prescription.doctorprescription.fragment.profile.ClinicListFragment;
+import com.prescription.doctorprescription.fragment.profile.ClinicSetupFragment;
 import com.prescription.doctorprescription.fragment.profile.DesignationSetupFragment;
 
 /**
@@ -23,7 +23,7 @@ public class DoctorPagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new ClinicListFragment();
+                fragment = new ClinicSetupFragment();
                 break;
             case 1:
                 fragment = new DesignationSetupFragment();

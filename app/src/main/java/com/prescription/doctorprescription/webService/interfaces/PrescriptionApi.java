@@ -1,5 +1,6 @@
 package com.prescription.doctorprescription.webService.interfaces;
 
+import com.prescription.doctorprescription.webService.collection.DesignationInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 
@@ -26,5 +27,19 @@ public interface PrescriptionApi {
     //login
     @GET("doctorLogin")
     Call<DoctorLoginCollection> getDoctorLoginInfo(@Query("t_doc_email") String username, @Query("t_doc_passphrase") String password);
+
+    //=========================Profile================================================
+    //designation insert
+    @GET("insertDocDesignation")
+    Call<MessegeCollection> insertDocDesignation(
+            @Query("t_doc_id") String t_doc_id, @Query("t_desig_name") String t_desig_name,
+            @Query("other") String other
+    );
+
+
+    //designation getDocDesignationByDocId
+    @GET("getDocDesignationByDocId")
+    Call<DesignationInfoCollection> getDocDesignationByDocId(@Query("t_doc_id") String t_doc_id);
+
 
 }

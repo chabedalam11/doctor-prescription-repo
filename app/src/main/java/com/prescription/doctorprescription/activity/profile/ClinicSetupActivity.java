@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 public class ClinicSetupActivity extends AppCompatActivity implements View.OnClickListener{
 
-    final String TAG = "ClinicActivity";
+    final String TAG = "ClinicSetupActivity";
     Context context;
     boolean hardwareBackControll;
 
