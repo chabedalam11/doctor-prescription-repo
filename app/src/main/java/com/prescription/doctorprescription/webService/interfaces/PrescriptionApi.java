@@ -1,5 +1,6 @@
 package com.prescription.doctorprescription.webService.interfaces;
 
+import com.prescription.doctorprescription.webService.collection.DocClinicInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 
@@ -26,5 +27,41 @@ public interface PrescriptionApi {
     //login
     @GET("doctorLogin")
     Call<DoctorLoginCollection> getDoctorLoginInfo(@Query("t_doc_email") String username, @Query("t_doc_passphrase") String password);
+
+    //=========================Profile================================================
+    //designation
+    @GET("insertSignUpInfo")
+    Call<MessegeCollection> insertDocDesignation(
+            @Query("t_doc_id") String t_doc_id, @Query("t_desig_name") String t_desig_name,
+            @Query("other") String other
+    );
+
+    //clinic
+    @GET("insertDocClinic")
+    Call<MessegeCollection> insertDocClinic(
+            @Query("t_doc_id") String t_doc_id, @Query("t_clinic_address") String t_clinic_address,
+            @Query("t_clinic_visit_day") String t_clinic_visit_day, @Query("t_clinic_visit_time1") String t_clinic_visit_time1,
+            @Query("t_clinic_visit_time2") String t_clinic_visit_time2, @Query("t_clinic_mobile") String t_clinic_mobile,
+            @Query("t_clinic_other") String t_clinic_other
+    );
+
+
+    //clinic
+    @GET("upDateDocClinic")
+    Call<MessegeCollection> upDateDocClinic(
+            @Query("t_clinic_id") String t_clinic_id,@Query("t_doc_id") String t_doc_id, @Query("t_clinic_address") String t_clinic_address,
+            @Query("t_clinic_visit_day") String t_clinic_visit_day, @Query("t_clinic_visit_time1") String t_clinic_visit_time1,
+            @Query("t_clinic_visit_time2") String t_clinic_visit_time2, @Query("t_clinic_mobile") String t_clinic_mobile,
+            @Query("t_clinic_other") String t_clinic_other
+    );
+
+    @GET("deleteDocClinic")
+    Call<MessegeCollection> deleteDocClinic(
+            @Query("t_clinic_id") String t_clinic_id,@Query("t_doc_id") String t_doc_id
+    );
+
+    //login
+    @GET("getDocClinicByDocId")
+    Call<DocClinicInfoCollection> getDocClinicByDocId(@Query("t_doc_id") String t_doc_id);
 
 }

@@ -1,0 +1,46 @@
+// localhost:3306/prescription","root","apcl123456"
+
+
+//===============Doctor SignUp===========
+	1.http://100.43.0.39:6001/prescription/insertSignUpInfo?t_doc_first_name=Md&t_doc_middle_name=kamal&t_doc_last_name=uddin&t_doc_birth_day=14-1-2015&t_doc_gender=male&t_doc_nation=bd&t_doc_phone1=123&t_doc_phone2=123&t_doc_phone3=123&t_doc_passphrase=0000&t_doc_email=@gmail.com&t_doc_address=Mirpur
+
+//===============Doctor Login===========
+	1.http://100.43.0.39:6001/prescription/doctorLogin?t_doc_email=@gmail.com&t_doc_passphrase=0000
+
+
+//===============Doc Designation===========
+	//insert designation
+	1.http://100.43.0.39:6001/prescription/insertDocDesignation?t_doc_id=3&t_desig_name=M.B.B.S&other=
+
+	//Update doc_clinic
+	2.http://100.43.0.39:6001/prescription/updateDocDesignation?t_desig_id=1&t_doc_id=3&t_desig_name=M.B.B.S&other=nothing
+
+	//delete doc_clinic
+	3.http://100.43.0.39:6001/prescription/deleteDocDesignation?t_desig_id=1&t_doc_id=3
+
+	//get all designation
+	4.http://100.43.0.39:6001/prescription/getDocDesignation
+
+	//get  designation by doc Id
+	5.http://100.43.0.39:6001/prescription/getDocDesignationByDocId?t_doc_id=3
+
+
+
+
+//===============Doc Clinic===========
+	//insert doc_clinic
+	1.http://100.43.0.39:6001/prescription/insertDocClinic?t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
+
+	//Update doc_clinic
+	2.http://100.43.0.39:6001/prescription/upDateDocClinic?t_clinic_id=1&t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
+
+	//delete doc_clinic
+	3.http://100.43.0.39:6001/prescription/deleteDocClinic?t_clinic_id=2&t_doc_id=3
+
+
+
+	//get all doc_clinic
+	4.http://100.43.0.39:6001/prescription/getDocClinic
+
+	//get  doc_clinic by doctor id
+	5.http://100.43.0.39:6001/prescription/getDocClinicByDocId?t_doc_id=3

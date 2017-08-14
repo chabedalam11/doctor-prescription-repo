@@ -1,27 +1,32 @@
 package com.prescription.doctorprescription.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
 public class WelcomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
+    final String TAG = "WelcomeActivity";
     Context context;
     PrescriptionMemories memory;
-    final String TAG = "WelcomeActivity";
+    boolean hardwareBackControll;
     //init webservice
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
     //Ui component
@@ -77,7 +82,26 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to Logout?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            memory.deletePreferences(memory.KEY_DOC_ID);
+                            memory.deletePreferences(memory.KEY_DOC_NAME);
+                            memory.deletePreferences(memory.KEY_DOC_PHONE1);
+                            memory.deletePreferences(memory.KEY_DOC_PHONE2);
+                            memory.deletePreferences(memory.KEY_DOC_EMAIL);
+
+                            //now go to login activity
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).create().show();
 
         }
 
@@ -86,14 +110,27 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         return true;
     }
 
-    //in pack press if drawer is open close it
+    //in backpress if drawer is open close it
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (hardwareBackControll) {
+                finish(); // finish activity
+            } else {
+                Toast.makeText(this, "Press Back again to Exit.",
+                        Toast.LENGTH_SHORT).show();
+                hardwareBackControll = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hardwareBackControll = false;
+                    }
+                }, 3 * 1000);
+
+            }
         }
     }
 }

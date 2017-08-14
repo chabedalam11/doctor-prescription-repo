@@ -105,7 +105,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         //now go to welcome activity
                         Intent welcomeIntent = new Intent(context, WelcomeActivity.class);
-                        welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        welcomeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(welcomeIntent);
                     }else {
                         Toast.makeText(context, "Invalid username or password", Toast.LENGTH_SHORT).show();

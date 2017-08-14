@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.webService.model.DocClinicInfo;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,12 @@ import java.util.ArrayList;
  * Created by medisys on 8/10/2017.
  */
 
-public class ClinicListAdapter extends ArrayAdapter<String> {
+public class ClinicListAdapter extends ArrayAdapter<DocClinicInfo> {
     Context context;
     int layoutResourceId;
-    ArrayList<String> clinicList = new ArrayList<String>();
+    ArrayList<DocClinicInfo> clinicList = new ArrayList<DocClinicInfo>();
 
-    public ClinicListAdapter(Context context, int layoutResourceId, ArrayList<String> objects) {
+    public ClinicListAdapter(Context context, int layoutResourceId, ArrayList<DocClinicInfo> objects) {
         super(context, layoutResourceId, objects);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -49,9 +50,9 @@ public class ClinicListAdapter extends ArrayAdapter<String> {
             clinicListWrapper = (ClinicListWrapper) item.getTag();
         }
 
-        String appointment = clinicList.get(position);
-        if(appointment != null){
-            clinicListWrapper.tvClinicName.setText(appointment);
+        DocClinicInfo docClinicInfo = clinicList.get(position);
+        if(docClinicInfo != null){
+            clinicListWrapper.tvClinicName.setText(docClinicInfo.getT_clinic_other());
         }
 
         return item;
