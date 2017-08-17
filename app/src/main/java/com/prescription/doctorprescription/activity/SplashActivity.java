@@ -47,6 +47,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
                 if (memory.getPref(memory.KEY_DOC_ID) != null){
                     Intent intent = new Intent(context, WelcomeActivity.class);
                     startActivity(intent);
+                    overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
                     finish();
                 }else {
                     Intent intent = new Intent(context, LoginActivity.class);
@@ -66,6 +67,7 @@ public class SplashActivity extends Activity implements View.OnClickListener {
             case R.id.imgIV1:
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
                 finish();
                 break;
         }

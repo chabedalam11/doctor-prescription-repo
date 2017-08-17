@@ -50,9 +50,11 @@ public class ClinicListAdapter extends ArrayAdapter<DocClinicInfo> {
             clinicListWrapper = (ClinicListWrapper) item.getTag();
         }
 
+
         DocClinicInfo docClinicInfo = clinicList.get(position);
-        if(docClinicInfo != null){
+        if (docClinicInfo != null) {
             clinicListWrapper.tvClinicName.setText(docClinicInfo.getT_clinic_other());
+
         }
 
         return item;

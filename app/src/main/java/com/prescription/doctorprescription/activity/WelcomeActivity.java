@@ -12,17 +12,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
+
+import com.prescription.doctorprescription.activity.barcode.BarcodeActivity;
 import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
+
+import com.prescription.doctorprescription.activity.patient_prescription.PatientPrescriptionInfoActivity;
+
 import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
+import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
-public class WelcomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+public class WelcomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     final String TAG = "WelcomeActivity";
     Context context;
     PrescriptionMemories memory;
@@ -30,7 +38,9 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
     //init webservice
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
     //Ui component
-    TextView tvDoctorName,tvDoctorEmail;
+    TextView tvDoctorName, tvDoctorEmail;
+    LinearLayout linLayCreatPres;
+    LinearLayout linLayReviewPat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,7 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
     }
 
     private void initialize() {
-        context=WelcomeActivity.this;
+        context = WelcomeActivity.this;
         memory = new PrescriptionMemories(getApplicationContext());
 
         //Navigation Drawer init
@@ -51,6 +61,10 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         View headerView = navigationView.getHeaderView(0);
         tvDoctorName = (TextView) headerView.findViewById(R.id.tvDoctorName);
         tvDoctorEmail = (TextView) headerView.findViewById(R.id.tvDoctorEmail);
+        linLayCreatPres = (LinearLayout) findViewById(R.id.linLayCreatPres);
+        linLayCreatPres.setOnClickListener(this);
+        linLayReviewPat = (LinearLayout) findViewById(R.id.linLayReviewPat);
+        linLayReviewPat.setOnClickListener(this);
         //set value
         tvDoctorName.setText(memory.getPref(memory.KEY_DOC_NAME));
         tvDoctorEmail.setText(memory.getPref(memory.KEY_DOC_EMAIL));
@@ -65,17 +79,16 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            /*Intent intent = new Intent(context, ClinicSetupActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);*/
-            // Handle the camera action
 
             Intent intent = new Intent(context, DoctorProfileActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            //overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
 
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent(context, BarcodeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -133,4 +146,23 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
             }
         }
     }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.linLayCreatPres:
+                Intent intentCreatePres = new Intent(context, PatientPrescriptionInfoActivity.class);
+                intentCreatePres.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentCreatePres);
+                break;
+
+            case R.id.linLayReviewPat:
+                Intent intentPatPrescription = new Intent(context, PatientPrescriptionInfoActivity.class);
+                intentPatPrescription.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentPatPrescription);
+                break;
+        }
+    }
+
 }

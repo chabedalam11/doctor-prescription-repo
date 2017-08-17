@@ -23,11 +23,20 @@ public class DoctorProfileActivity extends AppCompatActivity {
     }
 
     private  void intialize(){
+        //get tab from DesignationSetupActivity
+        String  tab=getIntent().getStringExtra("tab");
+
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         doctorPager = (ViewPager) findViewById(R.id.doctorPager);
         doctorPagerAdapter = new DoctorPagerAdapter(getSupportFragmentManager());
         doctorPager.setAdapter(doctorPagerAdapter);
         tabs.setViewPager(doctorPager);
+
+        //show tab 2 because activity call form designationSetupActivity
+        if (tab != null && tab.equals("2")){
+            doctorPager.setCurrentItem(1);
+        }
+
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

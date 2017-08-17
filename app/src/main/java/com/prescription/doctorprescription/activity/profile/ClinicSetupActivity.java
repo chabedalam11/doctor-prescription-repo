@@ -18,7 +18,6 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.prescription.doctorprescription.R;
-import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
@@ -70,7 +69,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
     AlertDialog alertDialog;
 
     //check update or save
-    String checkUpOrCheck="save";
+    String checkUpOrSave ="save";
     String clinic_id ="";
 
     @Override
@@ -110,7 +109,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
             tvVisitingHour2.setText(docClinicInfo.getT_clinic_visit_time2());
             tvVisitingDay.setText(docClinicInfo.getT_clinic_visit_day());
             tvChamberAddress.setText(docClinicInfo.getT_clinic_address()+" || "+ docClinicInfo.getT_clinic_visit_time1()+" || "+ docClinicInfo.getT_clinic_visit_time2()+" || "+ docClinicInfo.getT_clinic_visit_day());
-            checkUpOrCheck="update";
+            checkUpOrSave ="update";
             tvSaveAndUpdate.setText("Update Clinic");
         }
     }
@@ -278,7 +277,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
 //                Toast.makeText(context, "working", Toast.LENGTH_SHORT).show();
                 if(PrescriptionUtils.isInternetConnected(context)){
 
-                    if(checkUpOrCheck.equals("update")){
+                    if(checkUpOrSave.equals("update")){
                         //go for update clinic information
                         updateClinicInformation();
                     }else {

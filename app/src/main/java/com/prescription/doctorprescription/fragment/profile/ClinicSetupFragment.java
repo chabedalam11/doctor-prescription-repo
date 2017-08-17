@@ -37,9 +37,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClinicListFragment extends Fragment implements  View.OnClickListener{
+public class ClinicSetupFragment extends Fragment implements  View.OnClickListener{
 
-    final String TAG = "ClinicListFragment";
+    final String TAG = "ClinicSetupFragment";
     Context context;
     PrescriptionMemories memory;
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
@@ -48,10 +48,12 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
 
     ListView clinicListView;
     LinearLayout newClinic;
-    private String[] actionList={"View Detail","Remove Clinic"};
+    private String[] actionList={"View Details","Remove Clinic"};
 
     //list for adapter
     ArrayList<DocClinicInfo> clinicList;
+
+    String button_Flag="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +75,11 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
 
     private void getDocClinicByDocId(){
         clinicList = new ArrayList<DocClinicInfo>();
-        //Hide Dialog
-        PrescriptionUtils.hideProgressDialog();
+        if (button_Flag.equals("deleteButton")){
+            //Hide Dialog
+            PrescriptionUtils.hideProgressDialog();
+        }
+
         //show loader
         PrescriptionUtils.showProgressDialog(context);
         Log.d(TAG, "docId "+user_id);
@@ -142,6 +147,7 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
                     case 1:
                         //before delete clinic first check internet connection
                         if(PrescriptionUtils.isInternetConnected(context)){
+                            button_Flag="deleteButton";
                             deleteDocClinic(docClinicInfo.getT_clinic_id());
                         }else {
                             Toast.makeText(context, "Check you internet connection", Toast.LENGTH_SHORT).show();
@@ -151,7 +157,7 @@ public class ClinicListFragment extends Fragment implements  View.OnClickListene
                 }
             }
         });
-        builder.setTitle("Choose an action");
+        builder.setTitle("Choose An Action");
         builder.create().show();
 }
 
