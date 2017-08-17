@@ -17,14 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
-
 import com.prescription.doctorprescription.activity.barcode.BarcodeActivity;
 import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 
-import com.prescription.doctorprescription.activity.patient_prescription.PatientPrescriptionInfoActivity;
 
 import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
+import com.prescription.doctorprescription.activity.profile.PrescriptionSetupActivity;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
@@ -152,16 +151,16 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         int id = view.getId();
         switch (id) {
             case R.id.linLayCreatPres:
-                Intent intentCreatePres = new Intent(context, PatientPrescriptionInfoActivity.class);
-                intentCreatePres.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentCreatePres);
+                Intent intentPrescriptionSetup = new Intent(context, PrescriptionSetupActivity.class);
+                intentPrescriptionSetup.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentPrescriptionSetup);
                 break;
 
-            case R.id.linLayReviewPat:
+            /*case R.id.linLayReviewPat:
                 Intent intentPatPrescription = new Intent(context, PatientPrescriptionInfoActivity.class);
                 intentPatPrescription.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentPatPrescription);
-                break;
+                break;*/
         }
     }
 

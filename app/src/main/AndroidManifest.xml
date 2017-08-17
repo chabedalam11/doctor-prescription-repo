@@ -37,10 +37,9 @@
         <activity android:name=".activity.profile.ClinicSetupActivity" />
         <activity android:name=".activity.profile.DoctorProfileActivity" />
         <activity android:name=".activity.profile.DesignationSetupActivity" />
-        <activity android:name=".activity.patient_prescription.PatientPrescriptionInfoActivity" />
-        <activity android:name=".activity.patient_prescription.AdviceForInvestigationActivity" />
-        <activity android:name=".activity.patient_prescription.AdviceAndNextVisitActivity" />
+
         <activity android:name=".activity.barcode.BarcodeActivity"></activity>
+        <activity android:name=".activity.profile.PrescriptionSetupActivity"></activity>
     </application>
 
 </manifest>
