@@ -48,7 +48,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/creat_pres" />
+                    android:background="@drawable/creat_pres" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/creat_pres" />
+                    android:background="@drawable/review_pat" />
 
                 <TextView
                     android:layout_width="wrap_content"
