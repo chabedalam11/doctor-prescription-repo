@@ -19,12 +19,13 @@ import android.widget.Toast;
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.activity.barcode.BarcodeActivity;
 import com.prescription.doctorprescription.activity.login.LoginActivity;
+import com.prescription.doctorprescription.activity.patient.AddPatientActivity;
+import com.prescription.doctorprescription.activity.patient.ReviewPatientActivity;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 
 
 import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
-import com.prescription.doctorprescription.activity.profile.PrescriptionSetupActivity;
-import com.prescription.doctorprescription.utils.PrescriptionMemories;
+import com.prescription.doctorprescription.activity.prescription.PrescriptionSetupActivity;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
@@ -40,6 +41,7 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
     TextView tvDoctorName, tvDoctorEmail;
     LinearLayout linLayCreatPres;
     LinearLayout linLayReviewPat;
+    LinearLayout linLayAddPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,12 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
         View headerView = navigationView.getHeaderView(0);
         tvDoctorName = (TextView) headerView.findViewById(R.id.tvDoctorName);
         tvDoctorEmail = (TextView) headerView.findViewById(R.id.tvDoctorEmail);
-        linLayCreatPres = (LinearLayout) findViewById(R.id.linLayCreatPres);
-        linLayCreatPres.setOnClickListener(this);
+        //linLayCreatPres = (LinearLayout) findViewById(R.id.linLayCreatPres);
+        //linLayCreatPres.setOnClickListener(this);
         linLayReviewPat = (LinearLayout) findViewById(R.id.linLayReviewPat);
         linLayReviewPat.setOnClickListener(this);
+        linLayAddPatient = (LinearLayout) findViewById(R.id.linLayAddPatient);
+        linLayAddPatient.setOnClickListener(this);
         //set value
         tvDoctorName.setText(memory.getPref(memory.KEY_DOC_NAME));
         tvDoctorEmail.setText(memory.getPref(memory.KEY_DOC_EMAIL));
@@ -150,17 +154,23 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.linLayCreatPres:
+            /*case R.id.linLayCreatPres:
                 Intent intentPrescriptionSetup = new Intent(context, PrescriptionSetupActivity.class);
                 intentPrescriptionSetup.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentPrescriptionSetup);
+                break;*/
+
+            case R.id.linLayReviewPat:
+                Intent intentReviewPatient = new Intent(context, ReviewPatientActivity.class);
+                intentReviewPatient.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentReviewPatient);
                 break;
 
-            /*case R.id.linLayReviewPat:
-                Intent intentPatPrescription = new Intent(context, PatientPrescriptionInfoActivity.class);
+            case R.id.linLayAddPatient:
+                Intent intentPatPrescription = new Intent(context, AddPatientActivity.class);
                 intentPatPrescription.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentPatPrescription);
-                break;*/
+                break;
         }
     }
 

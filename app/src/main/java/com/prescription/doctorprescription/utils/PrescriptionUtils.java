@@ -15,6 +15,11 @@ import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.webService.PrescriptionWebservice;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,6 +43,11 @@ public class PrescriptionUtils {
 
         prescriptionApi = retrofit.create(PrescriptionApi.class);
         return prescriptionApi;
+    }
+
+    public static String getCurrentDate(){
+        DateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat2.format(new Date());
     }
 
     public static boolean isInternetConnected(Context context) {

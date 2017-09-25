@@ -20,3 +20,19 @@
 2. http://100.43.0.39:6006/prescription/updateDocDesignation?t_desig_id=1&t_doc_id=3&t_desig_name=M.B.B.S&other=nothing
 3. http://100.43.0.39:6006/prescription/deleteDocDesignation?t_desig_id=1&t_doc_id=3
 4. http://100.43.0.39:6006/prescription/getDocDesignationByDocId?t_doc_id=3
+
+//===============Analysis===========
+1.http://100.43.0.39:6006/prescription/getAnalysisByDocId?t_doc_id=3
+2.http://100.43.0.39:6006/prescription/insertAnalysis?t_analysis_name=test&t_entry_user=3
+
+//=============== Prescription ===========
+1.http://100.43.0.39:6006/prescription/getMedicineInfo?t_doc_id=3
+2.http://100.43.0.29:6006/prescription/insertPrescription?t_doc_id=3&t_pat_id=1&t_pres_date=11-02-2017&t_pres_chief_complaints=cp&t_pres_pulse=98&t_pres_bp=120/85&t_pres_temp=101&t_pres_resp=res&t_pres_other=other&t_analysis_code=1,2,3&t_pres_advice=takerest&t_pres_next_visit=12-12-12&t_pres_um=tab&t_pres_med_name=para&t_pres_strength=200mg&t_pres_dose_time=1+1+1&t_pres_duration=1day&t_pres_hints=before
+3.http://100.43.0.46:6006/prescription/getPrescriptionListByDocAndPatId?t_doc_id=3&t_pat_id=00000006
+4.http://100.43.0.36:6006/prescription/deletePrescription?t_pres_id=29&t_pat_id=1&t_doc_id=258
+5.http://100.43.0.36:6006
+/prescription/updatePrescription?t_pres_id=1&t_pres_chief_complaints=&t_pres_pulse=&t_pres_bp=&t_pres_temp=&t_pres_resp=&t_analysis_code=&t_pres_advice=&t_pres_next_visit=&t_pres_um=&t_pres_med_name=&t_pres_strength=&t_pres_dose_time=&t_pres_duration=&t_pres_hints=
+
+//===============Patient===========
+1.http://100.43.0.36:6006/prescription/insertPatient?t_doc_id=3&t_pat_name=kamal&t_pat_age=25&t_pat_sex=male&t_pat_address=Mirpur1&t_pat_mobile=01&t_pat_email=&t_pat_marital&t_pat_entry_date=16-Aug-2018&t_pat_f_name=hasan
+

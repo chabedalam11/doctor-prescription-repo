@@ -14,6 +14,7 @@ import com.prescription.doctorprescription.R;
  */
 
 public class AlartFactory {
+
     public static void showNetworkErrorAlertDialog(final Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
@@ -47,6 +48,27 @@ public class AlartFactory {
 
         // Setting alert dialog icon
         alertDialog.setIcon((status) ? R.drawable.rx : R.drawable.alart);
+
+        // Setting OK Button
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
+    public static void showHelpAlartDialog(Context context, String title, String message, Boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+        // Setting Dialog Title
+        alertDialog.setTitle(title);
+
+        // Setting Dialog Message
+        alertDialog.setMessage(message);
+
+        // Setting alert dialog icon
+        alertDialog.setIcon((status) ? R.drawable.rx : R.drawable.ic_help_black_24dp);
 
         // Setting OK Button
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

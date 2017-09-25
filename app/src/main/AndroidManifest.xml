@@ -35,11 +35,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.profile.ClinicSetupActivity" />
+        <activity android:name=".activity.patient.AddPatientActivity" />
+        <activity android:name=".activity.patient.ReviewPatientActivity" />
+        <activity android:name=".activity.patient.PatientHistoryActivity" />
         <activity android:name=".activity.profile.DoctorProfileActivity" />
         <activity android:name=".activity.profile.DesignationSetupActivity" />
 
         <activity android:name=".activity.barcode.BarcodeActivity"></activity>
-        <activity android:name=".activity.profile.PrescriptionSetupActivity"></activity>
+        <activity android:name=".activity.prescription.PrescriptionSetupActivity"></activity>
     </application>
 
 </manifest>

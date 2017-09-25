@@ -1,13 +1,23 @@
 package com.prescription.doctorprescription.webService.interfaces;
 
 
+import com.prescription.doctorprescription.webService.collection.AnalysisCollection;
 import com.prescription.doctorprescription.webService.collection.DocClinicInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DesignationInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
+import com.prescription.doctorprescription.webService.collection.MedicineInfoCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
+import com.prescription.doctorprescription.webService.collection.PatientCollection;
+import com.prescription.doctorprescription.webService.collection.PrescriptionCollection;
+import com.prescription.doctorprescription.webService.model.DrugMaster;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 
@@ -89,5 +99,74 @@ public interface PrescriptionApi {
     @GET("getDocDesignationByDocId")
     Call<DesignationInfoCollection> getDocDesignationByDocId(@Query("t_doc_id") String t_doc_id);
 
+    //=========================Analysis================================================
+    //analysis insert
+    @GET("insertAnalysis")
+    Call<MessegeCollection> insertAnalysis(
+            @Query("t_analysis_name") String t_analysis_name,
+            @Query("t_entry_user") String t_entry_user
+    );
+    //getAnalysisByDocId
+    @GET("getAnalysisByDocId")
+    Call<AnalysisCollection> getAnalysisByDocId(@Query("t_doc_id") String t_doc_id);
 
+
+    //=========================Prescription================================================
+    //getAnalysisByDocId
+    @GET("getMedicineInfo")
+    Call<MedicineInfoCollection> getMedicineInfo(@Query("t_doc_id") String t_doc_id);
+
+    //insertPrescription
+   @FormUrlEncoded
+    @POST("insertPrescription")
+    Call<MessegeCollection> insertPrescription(
+           @Field("t_doc_id") String t_doc_id, @Field("t_pat_id") String t_pat_id,
+           @Field("t_pres_date") String t_pres_date, @Field("t_pres_chief_complaints") String t_pres_chief_complaints,
+           @Field("t_pres_pulse") String t_pres_pulse, @Field("t_pres_bp") String t_pres_bp,
+           @Field("t_pres_temp") String t_pres_temp, @Field("t_pres_resp") String t_pres_resp,
+           @Field("t_pres_other") String t_pres_other, @Field("t_analysis_code") String t_analysis_code,
+           @Field("t_pres_advice") String t_pres_advice, @Field("t_pres_next_visit") String t_pres_next_visit,
+           @Field("t_pres_um") String t_pres_um, @Field("t_pres_med_name") String t_pres_med_name,
+           @Field("t_pres_strength") String t_pres_strength, @Field("t_pres_dose_time") String t_pres_dose_time,
+           @Field("t_pres_duration") String t_pres_duration, @Field("t_pres_hints") String t_pres_hints
+    );
+
+    //updatePrescription
+    @FormUrlEncoded
+    @POST("updatePrescription")
+    Call<MessegeCollection> updatePrescription(
+            @Field("t_pres_id") String t_pres_id, @Field("t_pres_chief_complaints") String t_pres_chief_complaints,
+            @Field("t_pres_pulse") String t_pres_pulse, @Field("t_pres_bp") String t_pres_bp,
+            @Field("t_pres_temp") String t_pres_temp, @Field("t_pres_resp") String t_pres_resp,
+            @Field("t_analysis_code") String t_analysis_code,
+            @Field("t_pres_advice") String t_pres_advice, @Field("t_pres_next_visit") String t_pres_next_visit,
+            @Field("t_pres_um") String t_pres_um, @Field("t_pres_med_name") String t_pres_med_name,
+            @Field("t_pres_strength") String t_pres_strength, @Field("t_pres_dose_time") String t_pres_dose_time,
+            @Field("t_pres_duration") String t_pres_duration, @Field("t_pres_hints") String t_pres_hints
+    );
+
+    //delete prescription
+    @GET("deletePrescription")
+    Call<MessegeCollection> deletePrescription(@Query("t_pres_id") String t_pres_id,@Query("t_pat_id") String t_pat_id,@Query("t_doc_id") String t_doc_id);
+
+    //getPrescriptionListByDocAndPatId
+    @GET("getPrescriptionListByDocAndPatId")
+    Call<PrescriptionCollection> getPrescriptionListByDocAndPatId(@Query("t_doc_id") String t_doc_id,@Query("t_pat_id") String t_pat_id);
+
+
+    //=========================Patient================================================
+
+    //patient insert
+    @GET("insertPatient")
+    Call<MessegeCollection> insertPatient(
+            @Query("t_doc_id") String t_doc_id, @Query("t_pat_name") String t_pat_name,
+            @Query("t_pat_age") String t_pat_age,@Query("t_pat_sex") String t_pat_sex,
+            @Query("t_pat_address") String t_pat_address,@Query("t_pat_mobile") String t_pat_mobile,
+            @Query("t_pat_email") String t_pat_email,@Query("t_pat_marital") String t_pat_marital,
+            @Query("t_pat_entry_date") String t_pat_entry_date,@Query("t_pat_f_name") String t_pat_f_name
+    );
+
+    //getPatientByDocId
+    @GET("getPatientByDocId")
+    Call<PatientCollection> getPatientByDocId(@Query("t_doc_id") String t_doc_id);
 }

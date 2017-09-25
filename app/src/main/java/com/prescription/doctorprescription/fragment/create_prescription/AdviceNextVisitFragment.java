@@ -10,9 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.utils.AlartFactory;
+import com.prescription.doctorprescription.utils.PrescriptionInfo;
+import com.prescription.doctorprescription.webService.model.MedicineInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,8 +28,10 @@ public class AdviceNextVisitFragment extends Fragment implements  View.OnClickLi
     Context context;
     boolean hardwareBackControll;
 
-    TextView edtAdvice;
+    TextView edtAdviceUi;
+    TextView edtAdviceValue;
     TextView edtNextVisitDate;
+    ImageButton btnHelp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,10 +39,15 @@ public class AdviceNextVisitFragment extends Fragment implements  View.OnClickLi
         View view= inflater.inflate(R.layout.fragment_advice_next_visit, container, false);
         context = getActivity();
 
-        edtAdvice = (TextView) view.findViewById(R.id.edtAdvice);
-        edtAdvice.setOnClickListener(this);
+        edtAdviceUi = (TextView) view.findViewById(R.id.edtAdvice);
+        edtAdviceUi.setText(PrescriptionInfo.advice);
+        edtAdviceUi.setOnClickListener(this);
+
+        btnHelp = (ImageButton) view.findViewById(R.id.btnHelp);
+        btnHelp.setOnClickListener(this);
 
         edtNextVisitDate = (TextView) view.findViewById(R.id.edtNextVisitDate);
+        edtNextVisitDate.setText(PrescriptionInfo.nextVisit);
         setCalenderInDoBField();
 
         return view;
@@ -44,35 +56,13 @@ public class AdviceNextVisitFragment extends Fragment implements  View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btnHelp:
+                //show alert dialog in help button
+                AlartFactory.showHelpAlartDialog(context, "Remember", "Please add advice in multiple line like \n\n advice one \n advice two \n advice three", false);
+                break;
             case R.id.edtAdvice:
-                LayoutInflater li_2 = LayoutInflater.from(context);
-                View promptsView_2 = li_2.inflate(R.layout.advice_nextvisit_information_holder, null);
-                promptsView_2.findViewById(R.id.adviceOneLayout).setOnClickListener(this);
-                promptsView_2.findViewById(R.id.adviceTwoLayout).setOnClickListener(this);
-                promptsView_2.findViewById(R.id.adviceThreeLayout).setOnClickListener(this);
-                promptsView_2.findViewById(R.id.adviceFourLayout).setOnClickListener(this);
-                promptsView_2.findViewById(R.id.adviceFiveLayout).setOnClickListener(this);
-                AlertDialog.Builder builder_2 = new AlertDialog.Builder(context);
-                builder_2.setView(promptsView_2);
-                builder_2.setCancelable(false)
-                        .setPositiveButton("SAVE",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-
-                                    }
-                                })
-                        .setNegativeButton("CANCEL",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                // create alert dialog
-                AlertDialog alertDialog_2 = builder_2.create();
-
-                // show it
-                alertDialog_2.show();
+                //show  dialog
+                openDoaloge();
                 break;
         }
     }
@@ -95,6 +85,7 @@ public class AdviceNextVisitFragment extends Fragment implements  View.OnClickLi
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
                 edtNextVisitDate.setText(sdf.format(myCalendar.getTime()));
+                PrescriptionInfo.nextVisit=sdf.format(myCalendar.getTime());
             }
         };
 
@@ -108,6 +99,37 @@ public class AdviceNextVisitFragment extends Fragment implements  View.OnClickLi
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
+
+
+    private void openDoaloge(){
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.advice_add_layout, null);
+
+        edtAdviceValue = (EditText) promptsView.findViewById(R.id.edtAdviceValue);
+        edtAdviceValue.setText(edtAdviceUi.getText().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(promptsView);
+        builder.setCancelable(false)
+                .setPositiveButton("SAVE",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                edtAdviceUi.setText(edtAdviceValue.getText().toString());
+                                PrescriptionInfo.advice=edtAdviceValue.getText().toString();
+                            }
+                        })
+                .setNegativeButton("CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
     }
 
 }

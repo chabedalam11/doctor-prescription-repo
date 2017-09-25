@@ -21,20 +21,16 @@
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
-            android:text="Add Chief Complaints"
+            android:text="Investigation Name"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textColor="#313fae" />
 
         <EditText
-            android:id="@+id/edtChiefComplaintValue"
+            android:id="@+id/edtInvestigationName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:lines="8"
-            android:gravity="top|left"
             android:background="@drawable/edittext_background_drawable"
-            android:inputType="textMultiLine"
-            android:scrollHorizontally="false"/>
-
+            android:inputType="text" />
     </LinearLayout>
 
 

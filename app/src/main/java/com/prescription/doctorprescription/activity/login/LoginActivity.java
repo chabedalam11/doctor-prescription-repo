@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(PrescriptionUtils.isInternetConnected(context)){
                     getDoctorLoginInfo(email,password);
                 }else {
-                    Toast.makeText(context, "Check you internet connection", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Check you internet connection", Toast.LENGTH_SHORT).show();
                     AlartFactory.showNetworkErrorAlertDialog(context, "No Internet Connection", "Please check your internet connection", false);
                 }
 

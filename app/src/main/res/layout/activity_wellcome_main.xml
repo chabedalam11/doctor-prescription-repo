@@ -38,14 +38,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
+
             <LinearLayout
-                android:id="@+id/linLayCreatPres"
+                android:id="@+id/linLayAddPatient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_weight="1">
-                <ImageButton
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/creat_pres" />
@@ -55,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"
-                    android:text="CREATE\nPRESCRIPTION" />
+                    android:text="ADD\nPATIENT" />
 
             </LinearLayout>
 
@@ -67,7 +69,7 @@
                 android:gravity="center_horizontal"
                 android:layout_weight="1" >
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/review_pat" />
@@ -82,6 +84,61 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+           <LinearLayout
+                android:id="@+id/linLayCreatPres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/creat_pres" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:text="CREATE\nPRESCRIPTION" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/linLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/review_pat" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:text="REVIEW\nPATIENT" />
+
+            </LinearLayout>
+
+        </LinearLayout>-->
 
 
     </LinearLayout>

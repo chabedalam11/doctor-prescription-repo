@@ -163,8 +163,8 @@
             android:textColor="#313fae" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/otherLayout"
+    <!--<LinearLayout
+        android:id="@+id/otherLayoutGeneral"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -189,7 +189,7 @@
             android:textColor="#313fae" />
 
         <TextView
-            android:id="@+id/tvOther"
+            android:id="@+id/tvOther2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
@@ -200,6 +200,6 @@
             android:text="Not set"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#313fae" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </RelativeLayout>

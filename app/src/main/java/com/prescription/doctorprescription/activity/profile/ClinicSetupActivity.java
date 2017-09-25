@@ -40,7 +40,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
     Context context;
     PrescriptionMemories memory;
     PrescriptionApi prescriptionApi = PrescriptionUtils.webserviceInitialize();
-    String user_id;
+    String doctor_id;
     boolean hardwareBackControll;
 
     //UI component
@@ -83,7 +83,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
     private void initialize() {
         context = ClinicSetupActivity.this;
         memory = new PrescriptionMemories(context);
-        user_id=memory.getPref(memory.KEY_DOC_ID);
+        doctor_id =memory.getPref(memory.KEY_DOC_ID);
 
 
         //init UI component
@@ -126,7 +126,7 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
 
         //show loader
         PrescriptionUtils.showProgressDialog(context);
-        Call<MessegeCollection> getInfo = prescriptionApi.insertDocClinic(user_id,address,visitingDay,visitingHour1,visitingHour2,mobileNo,clinicName);
+        Call<MessegeCollection> getInfo = prescriptionApi.insertDocClinic(doctor_id,address,visitingDay,visitingHour1,visitingHour2,mobileNo,clinicName);
         getInfo.enqueue(new Callback<MessegeCollection>() {
             @Override
             public void onResponse(Call<MessegeCollection> call, Response<MessegeCollection> response) {
@@ -175,11 +175,11 @@ public class ClinicSetupActivity extends AppCompatActivity implements View.OnCli
         visitingHour2=tvVisitingHour2.getText().toString();
         visitingDay=tvVisitingDay.getText().toString();
 
-        Log.d(TAG, "clinic and doctor id : "+clinic_id+"\t"+ user_id);
+        Log.d(TAG, "clinic and doctor id : "+clinic_id+"\t"+ doctor_id);
 
         //show loader
         PrescriptionUtils.showProgressDialog(context);
-        Call<MessegeCollection> getInfo = prescriptionApi.upDateDocClinic(clinic_id,user_id,address,visitingDay,visitingHour1,visitingHour2,mobileNo,clinicName);
+        Call<MessegeCollection> getInfo = prescriptionApi.upDateDocClinic(clinic_id, doctor_id,address,visitingDay,visitingHour1,visitingHour2,mobileNo,clinicName);
         getInfo.enqueue(new Callback<MessegeCollection>() {
             @Override
             public void onResponse(Call<MessegeCollection> call, Response<MessegeCollection> response) {

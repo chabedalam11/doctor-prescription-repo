@@ -3,18 +3,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".activity.prescription.PrescriptionSetupActivity">
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabForCreatePrescriptionAdapter"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:pstsShouldExpand="true"
-        app:pstsIndicatorColor="#6676ab"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/createPrescriptionPager"
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabForCreatePrescriptionAdapter"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:pstsShouldExpand="true"
+            app:pstsIndicatorColor="#6676ab"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/createPrescriptionPager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/lLayoutSavePrescription"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_layout_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:onClick="showClinicCreate"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <!--android:onClick="showAppointmentCreate"-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/add_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:text="Save Prescription"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lLayoutUpdatePrescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_layout_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:onClick="showClinicCreate"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <!--android:onClick="showAppointmentCreate"-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/add_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:text="Update Prescription"
+            android:textColor="#000" />
+    </LinearLayout>
+
+
+
+
 </LinearLayout>
 

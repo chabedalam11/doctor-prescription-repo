@@ -1,46 +1,85 @@
 // localhost:3306/prescription","root","apcl123456"
 
 
+
+//commend mvn
+	$ mvn clean install
+	$ java -jar target/prescription-service-0.1.jar
+
+
+
 //===============Doctor SignUp===========
-	1.http://100.43.0.39:6001/prescription/insertSignUpInfo?t_doc_first_name=Md&t_doc_middle_name=kamal&t_doc_last_name=uddin&t_doc_birth_day=14-1-2015&t_doc_gender=male&t_doc_nation=bd&t_doc_phone1=123&t_doc_phone2=123&t_doc_phone3=123&t_doc_passphrase=0000&t_doc_email=@gmail.com&t_doc_address=Mirpur
+	1.http://100.43.0.29:6001/prescription/insertSignUpInfo?t_doc_first_name=Md&t_doc_middle_name=kamal&t_doc_last_name=uddin&t_doc_birth_day=14-1-2015&t_doc_gender=male&t_doc_nation=bd&t_doc_phone1=123&t_doc_phone2=123&t_doc_phone3=123&t_doc_passphrase=0000&t_doc_email=@gmail.com&t_doc_address=Mirpur
 
 //===============Doctor Login===========
-	1.http://100.43.0.39:6001/prescription/doctorLogin?t_doc_email=@gmail.com&t_doc_passphrase=0000
+	1.http://100.43.0.29:6001/prescription/doctorLogin?t_doc_email=@gmail.com&t_doc_passphrase=0000
 
 
 //===============Doc Designation===========
 	//insert designation
-	1.http://100.43.0.39:6001/prescription/insertDocDesignation?t_doc_id=3&t_desig_name=M.B.B.S&other=
+	1.http://100.43.0.29:6001/prescription/insertDocDesignation?t_doc_id=3&t_desig_name=M.B.B.S&other=
 
 	//Update doc_clinic
-	2.http://100.43.0.39:6001/prescription/updateDocDesignation?t_desig_id=1&t_doc_id=3&t_desig_name=M.B.B.S&other=nothing
+	2.http://100.43.0.29:6001/prescription/updateDocDesignation?t_desig_id=1&t_doc_id=3&t_desig_name=M.B.B.S&other=nothing
 
 	//delete doc_clinic
-	3.http://100.43.0.39:6001/prescription/deleteDocDesignation?t_desig_id=1&t_doc_id=3
+	3.http://100.43.0.29:6001/prescription/deleteDocDesignation?t_desig_id=1&t_doc_id=3
 
 	//get all designation
-	4.http://100.43.0.39:6001/prescription/getDocDesignation
+	4.http://100.43.0.29:6001/prescription/getDocDesignation
 
 	//get  designation by doc Id
-	5.http://100.43.0.39:6001/prescription/getDocDesignationByDocId?t_doc_id=3
+	5.http://100.43.0.29:6001/prescription/getDocDesignationByDocId?t_doc_id=3
 
 
 
 
 //===============Doc Clinic===========
 	//insert doc_clinic
-	1.http://100.43.0.39:6001/prescription/insertDocClinic?t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
+	1.http://100.43.0.29:6001/prescription/insertDocClinic?t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
 
 	//Update doc_clinic
-	2.http://100.43.0.39:6001/prescription/upDateDocClinic?t_clinic_id=1&t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
+	2.http://100.43.0.29:6001/prescription/upDateDocClinic?t_clinic_id=1&t_doc_id=3&t_clinic_address=Kamal_Medical_center&t_clinic_visit_day=Saturday To Thursday&t_clinic_visit_time1=4PM TO 10PM&t_clinic_visit_time2=&t_clinic_mobile=017&t_clinic_other=
 
 	//delete doc_clinic
-	3.http://100.43.0.39:6001/prescription/deleteDocClinic?t_clinic_id=2&t_doc_id=3
+	3.http://100.43.0.29:6001/prescription/deleteDocClinic?t_clinic_id=2&t_doc_id=3
 
 
 
 	//get all doc_clinic
-	4.http://100.43.0.39:6001/prescription/getDocClinic
+	4.http://100.43.0.29:6001/prescription/getDocClinic
 
 	//get  doc_clinic by doctor id
-	5.http://100.43.0.39:6001/prescription/getDocClinicByDocId?t_doc_id=3
+	5.http://100.43.0.29:6001/prescription/getDocClinicByDocId?t_doc_id=3
+
+
+	//===============Patient===========
+	//insert patient
+	1.http://100.43.0.29:6001/prescription/insertPatient?t_doc_id=3&t_pat_name=kamal&t_pat_age=25&t_pat_sex=male&t_pat_address=Mirpur1&t_pat_mobile=01&t_pat_email=&t_pat_marital&t_pat_entry_date=16-Aug-2018&t_pat_f_name=hasan
+
+	2.http://100.43.0.29:6001/prescription/updatePatient?t_pat_id=101&t_doc_id=3&t_pat_name=Jamal&t_pat_age=25&t_pat_sex=male&t_pat_entry_date=16-Aug-2017
+
+	3.http://100.43.0.29:6001/prescription/deletePatient?t_pat_id=101&t_doc_id=3
+
+	4.http://100.43.0.29:6001/prescription/getAllPatient
+
+	5.http://100.43.0.29:6001/prescription/getPatientByDocId?t_doc_id=3
+
+	6.http://100.43.0.29:6001/prescription/getPatientByDocIdAndPatId?t_doc_id=3&t_pat_id=103
+
+
+	//===============Analysis===========
+	1.http://100.43.0.29:6001/prescription/getAnalysisByDocId?t_doc_id=3
+
+	2.http://100.43.0.29:6001/prescription/insertAnalysis?t_analysis_name=test&t_entry_user=3
+
+	//=============== Prescription ===========
+	1.http://100.43.0.29:6001/prescription/insertPrescription?t_doc_id=3&t_pat_id=1&t_pres_date=11-02-2017&t_pres_chief_complaints=cp&t_pres_pulse=98&t_pres_bp=120/85&t_pres_temp=101&t_pres_resp=res&t_pres_other=other&t_analysis_code=1,2,3&t_pres_advice=takerest&t_pres_next_visit=12-12-12&t_pres_um=tab&t_pres_med_name=para&t_pres_strength=200mg&t_pres_dose_time=1+1+1&t_pres_duration=1day&t_pres_hints=before
+	2.http://100.43.0.36:6001/prescription/deletePrescription?t_pres_id=29&t_pat_id=1&t_doc_id=3
+	3.http://100.43.0.36:6001/prescription/updatePrescription?t_pres_id=1&t_pres_chief_complaints=&t_pres_pulse=&t_pres_bp=&t_pres_temp=&t_pres_resp=&t_analysis_code=&t_pres_advice=&t_pres_next_visit=&t_pres_um=&t_pres_med_name=&t_pres_strength=&t_pres_dose_time=&t_pres_duration=&t_pres_hints=
+	4.http://100.43.0.35:6001/prescription/getPrescriptionListByDocAndPatId?t_doc_id=3&t_pat_id=00000006
+	5.http://100.43.0.29:6001/prescription/getMedicineInfo?t_doc_id=3
+
+
+
+
