@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,10 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.activity.prescription.PrescriptionSetupActivity;
 import com.prescription.doctorprescription.adapter.CustomExpandableListAdapter;
@@ -22,6 +28,8 @@ import com.prescription.doctorprescription.adapter.prescription.PrescriptionList
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionInfo;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
+import com.prescription.doctorprescription.utils.PrescriptionPdf;
+import com.prescription.doctorprescription.utils.PrescriptionPdfFooter;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 import com.prescription.doctorprescription.webService.collection.PrescriptionCollection;
@@ -32,7 +40,11 @@ import com.prescription.doctorprescription.webService.model.Message;
 import com.prescription.doctorprescription.webService.model.Patient;
 import com.prescription.doctorprescription.webService.model.Prescription;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -210,7 +222,8 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("docClinicInfo",docClinicInfo);
                         startActivity(intent);*/
-                        Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "open", Toast.LENGTH_SHORT).show();
+                        createPdf();
                         break;
                     case 1:
                         Intent intent = new Intent(context, PrescriptionSetupActivity.class);
@@ -250,11 +263,41 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
                         String [] fullMedNames =prescription.getT_pres_med_name().split("\\|");;
                         String [] ums =prescription.getT_pres_um().split("\\|");;
                         String [] strength =prescription.getT_pres_strength().split("\\|");;
-                        String [] doseTiems =prescription.getT_pres_dose_time().split("\\|");;
+                        String [] doseTimes =prescription.getT_pres_dose_time().split("\\|");;
                         String [] durations =prescription.getT_pres_duration().split("\\|");;
                         String [] hints =prescription.getT_pres_hints().split("\\|");;
 
+                        /*List medNameList = (List) Arrays.asList(fullMedNames);
+                        List umList = (List) Arrays.asList(ums);*/
+
+                        //display elements of List
+                        Log.d(TAG,"String array converted to List");
                         ArrayList<DrugMaster> drugMasterList= new ArrayList<DrugMaster>();
+                        for(int i=0; i < fullMedNames.length; i++){
+                            Log.d(TAG,"value : "+fullMedNames[i]);
+                            if(!fullMedNames[i].equals("")){
+                                DrugMaster drugMaster = new DrugMaster();
+
+                                drugMaster.setT_medicine_name(fullMedNames[i]);
+                                drugMaster.setT_um(ums[i]);
+                                drugMaster.setT_strength(strength[i]);
+                                drugMaster.setT_dose_time(doseTimes[i]);
+                                drugMaster.setT_duration(durations[i]);
+                                drugMaster.setT_advice(hints[i]);
+
+                                drugMasterList.add(drugMaster);
+                            }
+                        }
+
+
+                        /*Log.d(TAG,"medname L "+fullMedNames.length);
+                        Log.d(TAG,"um L "+ums.length);
+                        Log.d(TAG,"stre L "+strength.length);
+                        Log.d(TAG,"dosetime L "+doseTimes.length);
+                        Log.d(TAG,"duration L "+durations.length);
+                        Log.d(TAG,"hints L "+hints.length);*/
+
+                        /*ArrayList<DrugMaster> drugMasterList= new ArrayList<DrugMaster>();
                         Log.d(TAG,"fullMedNames.length"+fullMedNames.length);
                         //if(fullMedNames.length !=0){
                             for(int i =0; i<fullMedNames.length;i++){
@@ -269,8 +312,8 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
                                 if(strength.length !=i){
                                 drugMaster.setT_strength(strength[i]);
                                 }
-                                if(doseTiems.length !=i){
-                                drugMaster.setT_dose_time(doseTiems[i]);
+                                if(doseTimes.length !=i){
+                                drugMaster.setT_dose_time(doseTimes[i]);
                                 }
                                 if(durations.length !=i){
                                 drugMaster.setT_duration(durations[i]);
@@ -283,7 +326,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
                                 drugMasterList.add(drugMaster);
                                 }
                             }
-                        //}
+                        //}*/
 
                         PrescriptionInfo.drugMasterList=drugMasterList;
                         PrescriptionInfo.nextVisit=prescription.getT_pres_next_visit();
@@ -388,6 +431,63 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
         }
         this.hardwareBackControll = true;
         PrescriptionUtils.backToPrevious(context, new ReviewPatientActivity());
+    }
+
+
+
+    public void createPdf() {
+
+        Document doc = new Document();
+
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/DPA/reports";
+
+            File dir = new File(path);
+            if(!dir.exists())
+                dir.mkdirs();
+
+            File file = new File(dir, "12345" + ".pdf");
+            FileOutputStream fOut;
+            PrescriptionPdf prescriptionPdf = new PrescriptionPdf();   //<<<<<<PrescriptionPdf>>>>>>>>
+            fOut = new FileOutputStream(file);
+            PdfWriter pw = PdfWriter.getInstance(doc, fOut);
+            //contentByte = pw.getDirectContent();
+            Rectangle rect = new Rectangle(40, 40, 550, 800);       // <<<< 40 to 30
+            pw.setBoxSize("art", rect);
+            pw.setPageEvent(new PrescriptionPdfFooter());
+            // open the document
+            doc.open();
+            // add header
+            // prescriptionPdf.addHeaderImg(doc, WelcomeActivity.this);
+            prescriptionPdf.createPDF(doc, "12345");
+
+            openPdf("DPA" + File.separator + "reports"+ File.separator + file.getName());
+        } catch (DocumentException de) {
+            Log.e("PDFCreator", "DocumentException:"+ de);
+        } catch (IOException e) {
+            Log.e("PDFCreator", "ioException:" + e);
+        } finally {
+            doc.close();
+        }
+    }
+
+    private void openPdf(String path) {
+        Log.d("filePath ", path);
+        File file = new File(Environment.getExternalStorageDirectory()+ File.separator + path);
+        Uri uri = Uri.fromFile(file);
+        Log.d("uri", uri.toString());
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("ERROR", e.getMessage());
+            Log.e("ERROR", "No PDF Viewer is found.!!!");
+            System.out.println("No PDF Viewer is found.!!!");
+            Toast.makeText(getApplicationContext(),"No PDF Viewer is found.",Toast.LENGTH_LONG).show();
+        }
     }
 
 

@@ -157,11 +157,35 @@ public class PrescriptionSetupActivity extends AppCompatActivity implements View
                                 if(drugMasterList != null){
                                     for (DrugMaster drugMaster: drugMasterList){
                                         Log.d(TAG,drugMaster.getT_medicine_name());
+                                        //this if is use to add a space its in update time parsing
+                                        if(drugMaster.getT_um().equals("")){
+                                            drugMaster.setT_um(" ");
+                                        }
                                         um+=drugMaster.getT_um()+"|";
+
+                                        if(drugMaster.getT_medicine_name().equals("")){
+                                            drugMaster.setT_medicine_name(" ");
+                                        }
                                         medName+=drugMaster.getT_medicine_name()+"|";
+
+                                        if(drugMaster.getT_strength().equals("")){
+                                            drugMaster.setT_strength(" ");
+                                        }
                                         strength+=drugMaster.getT_strength()+"|";
+
+                                        if(drugMaster.getT_dose_time().equals("")){
+                                            drugMaster.setT_dose_time(" ");
+                                        }
                                         doseTime+=drugMaster.getT_dose_time()+"|";
+
+                                        if(drugMaster.getT_duration().equals("")){
+                                            drugMaster.setT_duration(" ");
+                                        }
                                         duration+=drugMaster.getT_duration()+"|";
+
+                                        if(drugMaster.getT_advice().equals("")){
+                                            drugMaster.setT_advice(" ");
+                                        }
                                         hints+=drugMaster.getT_advice()+"|";
                                     }
                                 }
@@ -233,12 +257,36 @@ public class PrescriptionSetupActivity extends AppCompatActivity implements View
                                 ArrayList<DrugMaster> drugMasterList = PrescriptionInfo.drugMasterList;
                                 if(drugMasterList != null){
                                     for (DrugMaster drugMaster: drugMasterList){
-                                        //Log.d(TAG,drugMaster.getT_medicine_name());
+                                        Log.d(TAG,drugMaster.getT_medicine_name());
+                                        //this if is use to add a space its in update time parsing
+                                        if(drugMaster.getT_um().equals("")){
+                                            drugMaster.setT_um(" ");
+                                        }
                                         um+=drugMaster.getT_um()+"|";
+
+                                        if(drugMaster.getT_medicine_name().equals("")){
+                                            drugMaster.setT_medicine_name(" ");
+                                        }
                                         medName+=drugMaster.getT_medicine_name()+"|";
+
+                                        if(drugMaster.getT_strength().equals("")){
+                                            drugMaster.setT_strength(" ");
+                                        }
                                         strength+=drugMaster.getT_strength()+"|";
+
+                                        if(drugMaster.getT_dose_time().equals("")){
+                                            drugMaster.setT_dose_time(" ");
+                                        }
                                         doseTime+=drugMaster.getT_dose_time()+"|";
+
+                                        if(drugMaster.getT_duration().equals("")){
+                                            drugMaster.setT_duration(" ");
+                                        }
                                         duration+=drugMaster.getT_duration()+"|";
+
+                                        if(drugMaster.getT_advice().equals("")){
+                                            drugMaster.setT_advice(" ");
+                                        }
                                         hints+=drugMaster.getT_advice()+"|";
                                     }
                                 }
