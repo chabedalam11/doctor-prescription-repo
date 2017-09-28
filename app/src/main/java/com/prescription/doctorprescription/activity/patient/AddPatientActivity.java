@@ -67,7 +67,7 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
-        setTitle("ADD Patient");
+        setTitle("Add / Update Patient");
         initialize();
     }
 
@@ -148,26 +148,19 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void savePatientInformation(){
 
+    private void savePatientInformation(){
         patientName=edtPatientName.getText().toString();
         age=edtAge.getText().toString();
         mobile=edtMobile.getText().toString();
         email=edtEmail.getText().toString();
         fatherName=edtFatherName.getText().toString();
         address=edtAddress.getText().toString();
-
-
         Log.d(TAG, patientName+"\t"+ age+"\t"+ sex+"\t"+ marital);
-
         if (patientName.equals("") || age.equals("") || sex == null || marital == null || mobile.equals("")){
             Toast.makeText(context, "You must fill required field", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        //Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
-
-
        //show loader
         PrescriptionUtils.showProgressDialog(context);
         Call<MessegeCollection> getInfo = prescriptionApi.insertPatient(doctor_id,patientName,age,sex,address,mobile,email,marital,PrescriptionUtils.getCurrentDate(),fatherName);
@@ -225,12 +218,7 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-
-
-
-
     private void updatePatientInformation(){
-
         patientName=edtPatientName.getText().toString();
         age=edtAge.getText().toString();
         mobile=edtMobile.getText().toString();
@@ -243,9 +231,10 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
         fatherName=edtFatherName.getText().toString();
         address=edtAddress.getText().toString();
 
-        //Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
-
-       // Log.d(TAG,patientDetailsList.getT_pat_id()+patientDetailsList.getT_doc_id()+age+patientDetailsList.getT_pat_sex()+patientDetailsList.getT_pat_address()+patientDetailsList.getT_pat_mobile()+patientDetailsList.getT_pat_email()+patientDetailsList.getT_pat_marital()+patientDetailsList.getT_pat_f_name());
+        if (patientName.equals("") || age.equals("") || sex == null || marital == null || mobile.equals("")){
+            Toast.makeText(context, "You must fill required field", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //show loader
         PrescriptionUtils.showProgressDialog(context);
@@ -294,7 +283,6 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onFailure(Call<MessegeCollection> call, Throwable t) {
-                //Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG,t.getMessage());
                 //Hide Dialog
                 PrescriptionUtils.hideProgressDialog();
@@ -303,9 +291,6 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
         });
 
     }
-
-
-
 
     @Override
     public void onClick(View v) {
