@@ -8,8 +8,8 @@
         <!--<item name="colorAccent">@color/colorAccent</item>-->
 
 
-        <item name="colorPrimary">@color/LightBlue</item>
-        <item name="colorPrimaryDark">@color/DarkSalmon</item>
+        <item name="colorPrimary">@color/DarkGoldenrod</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/Accent_red</item>
 
     </style>

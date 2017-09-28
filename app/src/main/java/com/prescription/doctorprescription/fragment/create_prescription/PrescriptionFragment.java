@@ -11,14 +11,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.adapter.AutoCompleteTextViewAdapter;
-import com.prescription.doctorprescription.adapter.prescription.InvestigationListAdapter;
 import com.prescription.doctorprescription.adapter.prescription.MedicineInfoAdapter;
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionInfo;
@@ -26,7 +25,6 @@ import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.collection.MedicineInfoCollection;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
-import com.prescription.doctorprescription.webService.model.Analysis;
 import com.prescription.doctorprescription.webService.model.DrugMaster;
 import com.prescription.doctorprescription.webService.model.MedicineInfo;
 
@@ -54,7 +52,7 @@ public class PrescriptionFragment extends Fragment {
     AutoCompleteTextView auComDoseTime;
     EditText edtDuration;
     EditText edtAdvice;
-    ImageButton btnAddMedicine;
+    Button btnAddMedicine;
     ListView lvMedicineDetails;
 
     //list for auto complete
@@ -86,7 +84,7 @@ public class PrescriptionFragment extends Fragment {
         edtDuration=(EditText) view.findViewById(R.id.edtDuration);
         edtAdvice=(EditText) view.findViewById(R.id.edtAdvice);
         lvMedicineDetails=(ListView) view.findViewById(R.id.lvMedicineDetails);
-        btnAddMedicine=(ImageButton) view.findViewById(R.id.btnAddMedicine);
+        btnAddMedicine=(Button) view.findViewById(R.id.btnAddMedicine);
         btnAddMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

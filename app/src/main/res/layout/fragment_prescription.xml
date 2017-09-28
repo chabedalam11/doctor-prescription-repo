@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/backgroud_main"
     android:orientation="vertical"
     android:scrollbars="vertical"
     tools:context="com.prescription.doctorprescription.fragment.create_prescription.PrescriptionFragment">
@@ -128,12 +129,18 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="5dp">
 
-        <ImageButton
+        <Button
             android:id="@+id/btnAddMedicine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add"
-            android:layout_marginLeft="10dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/button_add"
+            android:text="ADD"
+            android:textColor="@color/Black"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
     </LinearLayout>
 

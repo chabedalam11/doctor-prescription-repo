@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg"
+    android:background="@drawable/backgroud_main"
     tools:context="com.prescription.doctorprescription.activity.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:weightSum="1">
 
     <ImageView
         android:id="@+id/imgIV1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
+        android:layout_gravity="center"
         android:src="@drawable/rx"/>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:textSize="25sp"
-        android:textColor="@color/rufaida_red"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:text="Your Precriber Is Here" />
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <TextView
-        android:layout_width="fill_parent"
+        <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
         android:textColor="@color/Black"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:text="All Right Reserved" />
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -1,38 +1,27 @@
 package com.prescription.doctorprescription.activity.patient;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.activity.WelcomeActivity;
-import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
-import com.prescription.doctorprescription.webService.model.DocClinicInfo;
 import com.prescription.doctorprescription.webService.model.Message;
 import com.prescription.doctorprescription.webService.model.Patient;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,6 +47,7 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
     EditText edtFatherName;
     EditText edtAddress;
     LinearLayout lLayoutsavePatient;
+    LinearLayout lLayoutUpdatePatient;
 
 
     String patientName;
@@ -68,6 +58,9 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
     String email;
     String fatherName;
     String address;
+
+    // Intend Pass Value
+    Patient patientDetailsList;
 
 
     @Override
@@ -82,6 +75,8 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
         context = AddPatientActivity.this;
         memory = new PrescriptionMemories(context);
         doctor_id =memory.getPref(memory.KEY_DOC_ID);
+
+        patientDetailsList =(Patient) getIntent().getSerializableExtra("patientDetailsList");
 
 
         //init UI component
@@ -118,6 +113,39 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
 
         lLayoutsavePatient = (LinearLayout) findViewById(R.id.lLayoutsavePatient);
         lLayoutsavePatient.setOnClickListener(this);
+
+        lLayoutUpdatePatient =(LinearLayout) findViewById(R.id.lLayoutUpdatePatient);
+        lLayoutUpdatePatient.setOnClickListener(this);
+
+
+
+        if(patientDetailsList != null){
+            lLayoutsavePatient.setVisibility(View.GONE);
+           // Log.d(TAG,"PATIENT>>>>>"+patientDetailsList.getT_doc_id());
+            edtPatientName.setText(patientDetailsList.getT_pat_name());
+            edtAge.setText(patientDetailsList.getT_pat_age());
+
+            if(patientDetailsList.getT_pat_sex().equals("MALE")){
+                rbGsex.check(R.id.rbMale);
+            }else if(patientDetailsList.getT_pat_sex().equals("FEMALE")){
+                rbGsex.check(R.id.rbFemale);
+            }else{
+                rbGsex.check(R.id.rbUnknown);
+            }
+
+            if(patientDetailsList.getT_pat_marital().equals("Married")){
+                rbMaritalStatus.check(R.id.rbMarried);
+            }else if(patientDetailsList.getT_pat_marital().equals("Unmarried")){
+                rbMaritalStatus.check(R.id.rbUnmarried);
+            }
+
+            edtMobile.setText(patientDetailsList.getT_pat_mobile());
+            edtEmail.setText(patientDetailsList.getT_pat_email());
+            edtFatherName.setText(patientDetailsList.getT_pat_f_name());
+            edtAddress.setText(patientDetailsList.getT_pat_address());
+        }else{
+            lLayoutUpdatePatient.setVisibility(View.GONE);
+        }
     }
 
     private void savePatientInformation(){
@@ -201,6 +229,83 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
 
 
 
+    private void updatePatientInformation(){
+
+        patientName=edtPatientName.getText().toString();
+        age=edtAge.getText().toString();
+        mobile=edtMobile.getText().toString();
+        email=edtEmail.getText().toString();
+        fatherName=edtFatherName.getText().toString();
+        address=edtAddress.getText().toString();patientName=edtPatientName.getText().toString();
+        age=edtAge.getText().toString();
+        mobile=edtMobile.getText().toString();
+        email=edtEmail.getText().toString();
+        fatherName=edtFatherName.getText().toString();
+        address=edtAddress.getText().toString();
+
+        //Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+
+       // Log.d(TAG,patientDetailsList.getT_pat_id()+patientDetailsList.getT_doc_id()+age+patientDetailsList.getT_pat_sex()+patientDetailsList.getT_pat_address()+patientDetailsList.getT_pat_mobile()+patientDetailsList.getT_pat_email()+patientDetailsList.getT_pat_marital()+patientDetailsList.getT_pat_f_name());
+
+        //show loader
+        PrescriptionUtils.showProgressDialog(context);
+        Call<MessegeCollection> getInfo = prescriptionApi.updatePatient(patientDetailsList.getT_pat_id(),patientDetailsList.getT_doc_id(),patientName,age,sex,address,mobile,email,marital,fatherName);
+        getInfo.enqueue(new Callback<MessegeCollection>() {
+            @Override
+            public void onResponse(Call<MessegeCollection> call, Response<MessegeCollection> response) {
+                try {
+                    List<Message> info = response.body().data;
+                    Log.d(TAG, "clinicInfo :: " + info);
+                    if (!info.get(0).getMsgString().equals("0")){
+                        //Hide Dialog
+                        PrescriptionUtils.hideProgressDialog();
+
+                        Intent intent = new Intent(context,PatientHistoryActivity.class);
+                        Patient patient = new Patient();
+                        patient.setT_doc_id(patientDetailsList.getT_doc_id());
+                        patient.setT_pat_id(patientDetailsList.getT_pat_id());
+                        patient.setT_pat_name(patientName);
+                        patient.setT_pat_age(age);
+                        patient.setT_pat_sex(sex);
+                        patient.setT_pat_address(address);
+                        patient.setT_pat_mobile(mobile);
+                        patient.setT_pat_email(email);
+                        patient.setT_pat_marital(marital);
+                        patient.setT_pat_entry_date(PrescriptionUtils.getCurrentDate());
+                        patient.setT_pat_f_name(fatherName);
+                        intent.putExtra("patient",patient);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                        Toast.makeText(context, "Update successful", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "Not Able To Update", Toast.LENGTH_SHORT).show();
+                    }
+                    //Hide Dialog
+                    PrescriptionUtils.hideProgressDialog();
+                }catch (Exception e){
+                    Log.d(TAG,"list is null");
+                    e.printStackTrace();
+                    //Hide Dialog
+                    PrescriptionUtils.hideProgressDialog();
+                    AlartFactory.showAPInotResponseWarn(context);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MessegeCollection> call, Throwable t) {
+                //Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG,t.getMessage());
+                //Hide Dialog
+                PrescriptionUtils.hideProgressDialog();
+                AlartFactory.showWebServieErrorDialog(context, "Sorry !!!!", "Web Service is not running please contract with development team", false);
+            }
+        });
+
+    }
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -209,6 +314,9 @@ public class AddPatientActivity extends AppCompatActivity implements View.OnClic
                 savePatientInformation();
                 break;
 
+            case R.id.lLayoutUpdatePatient:
+                updatePatientInformation();
+                break;
         }
     }
 

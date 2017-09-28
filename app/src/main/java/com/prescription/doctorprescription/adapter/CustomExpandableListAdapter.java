@@ -1,14 +1,17 @@
 package com.prescription.doctorprescription.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.activity.patient.AddPatientActivity;
 import com.prescription.doctorprescription.webService.model.Patient;
 
 import java.util.HashMap;
@@ -23,12 +26,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<Patient>> expandableListDetail;
+    private Patient patientDetailsList;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<Patient>> expandableListDetail) {
+                                       HashMap<String, List<Patient>> expandableListDetail,Patient patient) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.patientDetailsList=patient;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final Patient patient = (Patient) getChild(listPosition, expandedListPosition);
+        Patient patient = (Patient) getChild(listPosition, expandedListPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -114,6 +119,22 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
+
+        ImageButton imgEditButton = (ImageButton)convertView.findViewById(R.id.imgEditButton);
+        imgEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 //Toast.makeText(context," Working!!!", Toast.LENGTH_SHORT).show();
+                Intent activityIntent = new Intent(context, AddPatientActivity.class);
+                activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //Log.d("CUSTOM EXPEDABLE ADAPTER",patientDetailsList.getT_doc_id());
+                activityIntent.putExtra("patientDetailsList",patientDetailsList);
+                context.startActivity(activityIntent);
+                notifyDataSetChanged();
+            }
+        });
+
+
         return convertView;
     }
 

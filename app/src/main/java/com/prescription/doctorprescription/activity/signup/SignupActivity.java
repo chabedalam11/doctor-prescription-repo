@@ -16,14 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prescription.doctorprescription.R;
-import com.prescription.doctorprescription.activity.WelcomeActivity;
 import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.utils.AlartFactory;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
-import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
-import com.prescription.doctorprescription.webService.model.DoctorLogin;
 import com.prescription.doctorprescription.webService.model.Message;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +55,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        setTitle("Doctor's Signup");
         initialize();
     }
 

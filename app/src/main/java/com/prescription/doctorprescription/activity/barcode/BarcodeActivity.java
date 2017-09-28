@@ -1,27 +1,24 @@
 package com.prescription.doctorprescription.activity.barcode;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.prescription.doctorprescription.R;
 
 public class BarcodeActivity extends AppCompatActivity {
     Button btnBarcode;
-    TextView tvBercode;
+    //TextView tvBercode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode);
 
         // Scanner
-        tvBercode=(TextView) findViewById(R.id.tvBercode);
+        //tvBercode=(TextView) findViewById(R.id.tvBercode);
         btnBarcode = (Button) findViewById(R.id.btnBarcode);
         btnBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +46,7 @@ public class BarcodeActivity extends AppCompatActivity {
             contentTxt.setText("CONTENT: " + scanContent);*/
             Toast toast = Toast.makeText(getApplicationContext(),
                     "becode : "+scanFormat+"\t"+scanContent, Toast.LENGTH_SHORT);
-            tvBercode.setText(scanContent);
+            //tvBercode.setText(scanContent);
             toast.show();
         }
         else{

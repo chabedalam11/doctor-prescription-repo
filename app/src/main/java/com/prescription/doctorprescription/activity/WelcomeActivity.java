@@ -21,11 +21,8 @@ import com.prescription.doctorprescription.activity.barcode.BarcodeActivity;
 import com.prescription.doctorprescription.activity.login.LoginActivity;
 import com.prescription.doctorprescription.activity.patient.AddPatientActivity;
 import com.prescription.doctorprescription.activity.patient.ReviewPatientActivity;
-import com.prescription.doctorprescription.utils.PrescriptionMemories;
-
-
 import com.prescription.doctorprescription.activity.profile.DoctorProfileActivity;
-import com.prescription.doctorprescription.activity.prescription.PrescriptionSetupActivity;
+import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 
@@ -92,9 +89,9 @@ public class WelcomeActivity extends AppCompatActivity implements NavigationView
             Intent intent = new Intent(context, BarcodeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
+        } /*else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        }*/ else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
