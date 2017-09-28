@@ -25,16 +25,23 @@ import com.prescription.doctorprescription.R;
 import com.prescription.doctorprescription.activity.prescription.PrescriptionSetupActivity;
 import com.prescription.doctorprescription.adapter.CustomExpandableListAdapter;
 import com.prescription.doctorprescription.adapter.prescription.PrescriptionListAdapter;
+import com.prescription.doctorprescription.adapter.profile.ClinicListAdapter;
+import com.prescription.doctorprescription.adapter.profile.DesignationListAdapter;
 import com.prescription.doctorprescription.utils.AlartFactory;
+import com.prescription.doctorprescription.utils.GeneratePDF;
 import com.prescription.doctorprescription.utils.PrescriptionInfo;
 import com.prescription.doctorprescription.utils.PrescriptionMemories;
 import com.prescription.doctorprescription.utils.PrescriptionPdf;
 import com.prescription.doctorprescription.utils.PrescriptionPdfFooter;
 import com.prescription.doctorprescription.utils.PrescriptionUtils;
+import com.prescription.doctorprescription.webService.collection.DesignationInfoCollection;
+import com.prescription.doctorprescription.webService.collection.DocClinicInfoCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 import com.prescription.doctorprescription.webService.collection.PrescriptionCollection;
 import com.prescription.doctorprescription.webService.interfaces.PrescriptionApi;
 import com.prescription.doctorprescription.webService.model.Analysis;
+import com.prescription.doctorprescription.webService.model.DesignationInfo;
+import com.prescription.doctorprescription.webService.model.DocClinicInfo;
 import com.prescription.doctorprescription.webService.model.DrugMaster;
 import com.prescription.doctorprescription.webService.model.Message;
 import com.prescription.doctorprescription.webService.model.Patient;
@@ -113,7 +120,14 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
         setExpendableView();
 
         //get prescription list and set it in listView
-        getPrescriptionListByDocAndPatId(doctor_id,patient.getT_pat_id());
+        if(PrescriptionUtils.isInternetConnected(context)){
+            getPrescriptionListByDocAndPatId(doctor_id,patient.getT_pat_id());
+            getDocClinicByDocId(doctor_id);
+            getDocDesignationByDocId(doctor_id);
+        }else {
+            AlartFactory.showNetworkErrorAlertDialog(context, "No Internet Connection", "Please check your internet connection", false);
+        }
+
 
     }
 
@@ -209,6 +223,61 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
 
     }
 
+    private void getDocClinicByDocId(String doctor_id){
+        Call<DocClinicInfoCollection> getInfo = prescriptionApi.getDocClinicByDocId(doctor_id);
+        getInfo.enqueue(new Callback<DocClinicInfoCollection>() {
+            @Override
+            public void onResponse(Call<DocClinicInfoCollection> call, Response<DocClinicInfoCollection> response) {
+                try {
+                    List<DocClinicInfo> info = response.body().data;
+                    Log.d(TAG, "docClinic Info :: " + info);
+                    if (info.size() > 0) {
+                        PrescriptionInfo.docClinicInfoList=info;
+                    }
+                }catch (Exception e){
+                    Log.d(TAG,"list is null");
+                    e.printStackTrace();
+                    AlartFactory.showAPInotResponseWarn(context);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DocClinicInfoCollection> call, Throwable t) {
+                //Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG,t.getMessage());
+                //Hide Dialog
+                PrescriptionUtils.hideProgressDialog();
+                AlartFactory.showWebServieErrorDialog(context, "Sorry !!!!", "Web Service is not running please contract with development team", false);
+            }
+        });
+    }
+
+    private void getDocDesignationByDocId(String doctor_id) {
+        Call<DesignationInfoCollection> getInfo = prescriptionApi.getDocDesignationByDocId(doctor_id);
+        getInfo.enqueue(new Callback<DesignationInfoCollection>() {
+            @Override
+            public void onResponse(Call<DesignationInfoCollection> call, Response<DesignationInfoCollection> response) {
+                try {
+                    List<DesignationInfo> info = response.body().data;
+                    Log.d(TAG, "Designation Info :: " + info);
+                    if (info.size() > 0) {
+                        PrescriptionInfo.designationList=info;
+                    }
+                }catch (Exception e){
+                    Log.d(TAG,"list is null");
+                    e.printStackTrace();
+                    AlartFactory.showAPInotResponseWarn(context);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DesignationInfoCollection> call, Throwable t) {
+                Log.d(TAG,t.getMessage());
+                AlartFactory.showWebServieErrorDialog(context, "Sorry !!!!", "Web Service is not running please contract with development team", false);
+            }
+        });
+    }
+
 
 
     private void showActionChooser(final  Prescription prescription){
@@ -218,17 +287,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-                        /*Intent intent = new Intent(context, ClinicSetupActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("docClinicInfo",docClinicInfo);
-                        startActivity(intent);*/
-                        Toast.makeText(context, "open", Toast.LENGTH_SHORT).show();
-                        createPdf();
-                        break;
-                    case 1:
-                        Intent intent = new Intent(context, PrescriptionSetupActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("actionType","update");
+                        Toast.makeText(context, "opening...", Toast.LENGTH_SHORT).show();
                         PrescriptionInfo.patientInfo=patient;
                         PrescriptionInfo.t_pres_id=prescription.getT_pres_id();
                         PrescriptionInfo.chiefcomplaint=prescription.getT_pres_chief_complaints();
@@ -289,46 +348,81 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
                             }
                         }
 
-
-                        /*Log.d(TAG,"medname L "+fullMedNames.length);
-                        Log.d(TAG,"um L "+ums.length);
-                        Log.d(TAG,"stre L "+strength.length);
-                        Log.d(TAG,"dosetime L "+doseTimes.length);
-                        Log.d(TAG,"duration L "+durations.length);
-                        Log.d(TAG,"hints L "+hints.length);*/
-
-                        /*ArrayList<DrugMaster> drugMasterList= new ArrayList<DrugMaster>();
-                        Log.d(TAG,"fullMedNames.length"+fullMedNames.length);
-                        //if(fullMedNames.length !=0){
-                            for(int i =0; i<fullMedNames.length;i++){
-                                DrugMaster drugMaster = new DrugMaster();
-                                if(fullMedNames.length !=0){
-                                drugMaster.setT_medicine_name(fullMedNames[i]);
-                                Log.d(TAG,"med name : "+fullMedNames[i]);
-                                }
-                                if(ums.length !=i){
-                                drugMaster.setT_um(ums[i]);
-                                }
-                                if(strength.length !=i){
-                                drugMaster.setT_strength(strength[i]);
-                                }
-                                if(doseTimes.length !=i){
-                                drugMaster.setT_dose_time(doseTimes[i]);
-                                }
-                                if(durations.length !=i){
-                                drugMaster.setT_duration(durations[i]);
-                                }
-                                if(hints.length !=i){
-                                drugMaster.setT_advice(hints[i]);
-                                }
-                                if(!fullMedNames[0].equals("")){
-                                Log.d(TAG,"add one");
-                                drugMasterList.add(drugMaster);
-                                }
-                            }
-                        //}*/
-
                         PrescriptionInfo.drugMasterList=drugMasterList;
+                        PrescriptionInfo.nextVisit=prescription.getT_pres_next_visit();
+                        PrescriptionInfo.advice=prescription.getT_pres_advice();
+                        //createPdf(prescription);
+                        try {
+                            new GeneratePDF(PatientHistoryActivity.this,getBaseContext()).createPDF();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 1:
+                        Intent intent = new Intent(context, PrescriptionSetupActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("actionType","update");
+                        PrescriptionInfo.patientInfo=patient;
+                        PrescriptionInfo.t_pres_id=prescription.getT_pres_id();
+                        PrescriptionInfo.chiefcomplaint=prescription.getT_pres_chief_complaints();
+                        PrescriptionInfo.patientPalse=prescription.getT_pres_pulse();
+                        PrescriptionInfo.patientBloodPressure=prescription.getT_pres_bp();
+                        PrescriptionInfo.patientTemprature=prescription.getT_pres_temp();
+                        PrescriptionInfo.patientResp=prescription.getT_pres_resp();
+
+                        //get analysisinfo and make a List by it
+                        String analysisInfo2 =prescription.getT_analysis_code();
+                        Log.d(TAG,analysisInfo2);
+                        String [] part2 = analysisInfo2.split("\\|\\|\\|");
+                        //Log.d(TAG,"part "+part[0]+" and "+part[1]);
+                        String [] analysisCode2=part2[0].split(",");
+                        String [] analysisName2=null;
+                        Log.d(TAG,part2.length+"");
+                        if(part2.length>1){
+                            analysisName2=part2[1].split("\\$");
+                        }
+                        ArrayList<Analysis> analysisesList2=new ArrayList<Analysis>();
+                        if(analysisName2!=null){
+                            for(int i =0; i<analysisName2.length;i++){
+                                Analysis analysis = new Analysis();
+                                Log.d(TAG,"code : "+analysisCode2[i]+"name : "+analysisName2[i]);
+                                analysis.setT_analysis_code(analysisCode2[i]);
+                                analysis.setT_analysis_name(analysisName2[i]);
+                                analysisesList2.add(analysis);
+                            }
+                        }
+                        PrescriptionInfo.analysisesList=analysisesList2;
+                        //get analysis info and make a List by it
+                        String [] fullMedNames2 =prescription.getT_pres_med_name().split("\\|");;
+                        String [] ums2 =prescription.getT_pres_um().split("\\|");;
+                        String [] strength2 =prescription.getT_pres_strength().split("\\|");;
+                        String [] doseTimes2 =prescription.getT_pres_dose_time().split("\\|");;
+                        String [] durations2 =prescription.getT_pres_duration().split("\\|");;
+                        String [] hints2 =prescription.getT_pres_hints().split("\\|");;
+
+                        /*List medNameList = (List) Arrays.asList(fullMedNames);
+                        List umList = (List) Arrays.asList(ums);*/
+
+                        //display elements of List
+                        Log.d(TAG,"String array converted to List");
+                        ArrayList<DrugMaster> drugMasterList2= new ArrayList<DrugMaster>();
+                        for(int i=0; i < fullMedNames2.length; i++){
+                            Log.d(TAG,"value : "+fullMedNames2[i]);
+                            if(!fullMedNames2[i].equals("")){
+                                DrugMaster drugMaster = new DrugMaster();
+
+                                drugMaster.setT_medicine_name(fullMedNames2[i]);
+                                drugMaster.setT_um(ums2[i]);
+                                drugMaster.setT_strength(strength2[i]);
+                                drugMaster.setT_dose_time(doseTimes2[i]);
+                                drugMaster.setT_duration(durations2[i]);
+                                drugMaster.setT_advice(hints2[i]);
+
+                                drugMasterList2.add(drugMaster);
+                            }
+                        }
+
+                        PrescriptionInfo.drugMasterList=drugMasterList2;
                         PrescriptionInfo.nextVisit=prescription.getT_pres_next_visit();
                         PrescriptionInfo.advice=prescription.getT_pres_advice();
 
@@ -435,7 +529,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
 
 
 
-    public void createPdf() {
+    public void createPdf(Prescription prescription) {
 
         Document doc = new Document();
 
@@ -446,7 +540,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
             if(!dir.exists())
                 dir.mkdirs();
 
-            File file = new File(dir, "12345" + ".pdf");
+            File file = new File(dir, prescription.getT_pres_date()+":"+prescription.getT_pres_id() + ".pdf");
             FileOutputStream fOut;
             PrescriptionPdf prescriptionPdf = new PrescriptionPdf();   //<<<<<<PrescriptionPdf>>>>>>>>
             fOut = new FileOutputStream(file);
@@ -459,7 +553,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
             doc.open();
             // add header
             // prescriptionPdf.addHeaderImg(doc, WelcomeActivity.this);
-            prescriptionPdf.createPDF(doc, "12345");
+            prescriptionPdf.createPDF(doc);
 
             openPdf("DPA" + File.separator + "reports"+ File.separator + file.getName());
         } catch (DocumentException de) {

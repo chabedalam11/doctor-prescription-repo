@@ -70,7 +70,7 @@ public class DesignationSetupFragment extends Fragment implements View.OnClickLi
     }
 
 
-    //checking login in information
+    //getDocDesignationByDocId
     private void getDocDesignationByDocId() {
         designationList = new ArrayList<DesignationInfo>();
         if (button_Flag.equals("deleteButton")){

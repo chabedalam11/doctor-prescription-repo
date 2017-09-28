@@ -16,6 +16,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.prescription.doctorprescription.R;
+import com.prescription.doctorprescription.webService.model.Prescription;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -64,22 +65,43 @@ public class PrescriptionPdf {
         return myBarCodeImage128;
     }*/
 
-    public  void createPDF(Document doc, String reqNo){
+    public  void createPDF(Document doc){
 
         try {
 
             /*Font boldfont = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);*/
 
+
+
+            /*PdfPTable table = new PdfPTable(2);
+            table.getDefaultCell().setBorder(0);
+
+            buildNestedTables3(table);
+            float[] cw = {2.5f, 2.5f};
+            table.setWidths(cw);
+            doc.add(table);*/
+
+
             PdfPTable table1Head = new PdfPTable(3);
             table1Head.getDefaultCell().setBorder(0);
 
-            PdfPCell cellOne = new PdfPCell(new Phrase(Font.BOLD, "DR. Md Abu Bakar Siddique"));
+            //PdfPCell cellOne = new PdfPCell(new Phrase(Font.BOLD, "DR. Md Abu Bakar Siddique"));
             PdfPCell cellTwo = new PdfPCell(new Phrase(" "));
-            PdfPCell cellThree = new PdfPCell(new Phrase(Font.BOLD, "Popular Diagonostic Center"));
+            PdfPCell cellThree = new PdfPCell(new Phrase(Font.BOLD, "Popular Diagonostic Center 2"));
 
-            cellOne.setBorder(Rectangle.NO_BORDER);
-            cellOne.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
-            table1Head.addCell(cellOne);
+
+            PdfPTable innerTable1 = new PdfPTable(1);
+            innerTable1.setWidthPercentage(100);
+            PdfPCell cell;
+            innerTable1.addCell("Cell 1");
+            innerTable1.addCell("Cell 2");
+            cell = new PdfPCell();
+            cell.addElement(innerTable1);
+            //outerTable.addCell(cell);
+
+            //cellOne.setBorder(Rectangle.NO_BORDER);
+            //cellOne.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            table1Head.addCell(cell);
 
             cellTwo.setBorder(Rectangle.NO_BORDER);
             cellTwo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_MIDDLE);
@@ -223,9 +245,9 @@ public class PrescriptionPdf {
             table3.getDefaultCell().setBorder(0);
 
             PdfPCell t3CellOne = new PdfPCell(new Phrase("Pat ID :"));
-            PdfPCell t3CellTwo = new PdfPCell(new Phrase("25468"));
+            PdfPCell t3CellTwo = new PdfPCell(new Phrase(PrescriptionInfo.patientInfo.getT_pat_id()));
             PdfPCell t3CellThree = new PdfPCell(new Phrase("Date : "));
-            PdfPCell t3CellFour = new PdfPCell(new Phrase("01-03-2017"));
+            PdfPCell t3CellFour = new PdfPCell(new Phrase(PrescriptionUtils.getCurrentDate()));
 
             t3CellOne.setBorder(Rectangle.NO_BORDER);
             t3CellOne.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
@@ -250,12 +272,12 @@ public class PrescriptionPdf {
             PdfPTable table5 = new PdfPTable(6);
             table5.getDefaultCell().setBorder(0);
 
-            PdfPCell t5CellOne = new PdfPCell(new Phrase(""));
-            PdfPCell t5CellTwo = new PdfPCell(new Phrase("Md. Chabed Alam"));
+            PdfPCell t5CellOne = new PdfPCell(new Phrase("Name : "));
+            PdfPCell t5CellTwo = new PdfPCell(new Phrase(PrescriptionInfo.patientInfo.getT_pat_name()));
             PdfPCell t5CellThree = new PdfPCell(new Phrase("Age : "));
-            PdfPCell t5CellFour = new PdfPCell(new Phrase("31"));
+            PdfPCell t5CellFour = new PdfPCell(new Phrase(PrescriptionInfo.patientInfo.getT_pat_age()));
             PdfPCell t5CellFive = new PdfPCell(new Phrase("Sex : "));
-            PdfPCell t5CellSix = new PdfPCell(new Phrase("Male"));
+            PdfPCell t5CellSix = new PdfPCell(new Phrase(PrescriptionInfo.patientInfo.getT_pat_sex()));
 
             t5CellOne.setBorder(Rectangle.NO_BORDER);
             t5CellOne.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
@@ -281,7 +303,7 @@ public class PrescriptionPdf {
             t5CellSix.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
             table5.addCell(t5CellSix);
 
-            float[] columnWidthsT5 = {0.5f, 1.5f, 1f, 1f, 1f, 1f};
+            float[] columnWidthsT5 = {1f, 1.5f, 1f, 1f, 1f, 1.5f};
             table5.setWidths(columnWidthsT5);
             doc.add(table5);
 
@@ -1024,5 +1046,41 @@ public class PrescriptionPdf {
         } finally {
             doc.close();
         }*/
-        }
+
+    private void buildNestedTables3(PdfPTable outerTable) {
+        PdfPCell cellOne = new PdfPCell(new Phrase(Font.BOLD, "new add"));
+        PdfPCell cellTwo = new PdfPCell(new Phrase(" add two"));
+        //PdfPCell cellThree = new PdfPCell(new Phrase(Font.BOLD, "Popular Diagonostic Center"));
+
+        cellOne.setBorder(Rectangle.NO_BORDER);
+        cellOne.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+        outerTable.addCell(cellOne);
+
+        cellTwo.setBorder(Rectangle.NO_BORDER);
+        cellTwo.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+        outerTable.addCell(cellTwo);
+
+
+        /*PdfPTable innerTable1 = new PdfPTable(1);
+        innerTable1.setWidthPercentage(100);
+        PdfPTable innerTable2 = new PdfPTable(2);
+        innerTable2.setWidthPercentage(100);
+        PdfPCell cell;
+        innerTable1.addCell("Cell 1");
+        innerTable1.addCell("Cell 2");
+        cell = new PdfPCell();
+        cell.addElement(innerTable1);
+        outerTable.addCell(cell);
+        innerTable2.addCell("Cell 3");
+        innerTable2.addCell("Cell 4");
+        cell = new PdfPCell();
+        cell.addElement(innerTable2);
+        outerTable.addCell(cell);
+        cell = new PdfPCell();
+        cell.setColspan(14);
+        outerTable.addCell(cell);*/
+    }
+
+    //=============================================================
+}
 

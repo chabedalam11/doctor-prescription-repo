@@ -35,4 +35,4 @@
 
 //===============Patient===========
 1.http://100.43.0.36:6006/prescription/insertPatient?t_doc_id=3&t_pat_name=kamal&t_pat_age=25&t_pat_sex=male&t_pat_address=Mirpur1&t_pat_mobile=01&t_pat_email=&t_pat_marital&t_pat_entry_date=16-Aug-2018&t_pat_f_name=hasan
-
+2.http://100.43.0.12:6006/prescription/updatePatient?t_pat_id=0000000008&t_doc_id=3&t_pat_name=alamin&t_pat_age=25&t_pat_sex=male&t_pat_address=raipur&t_pat_mobile=017&t_pat_email=@gmail&t_pat_marital=married&t_pat_f_name=khan

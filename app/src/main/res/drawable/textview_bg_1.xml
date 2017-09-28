@@ -8,9 +8,9 @@
                 android:endColor="@color/Blue"
                 android:startColor="@color/BlueViolet" />
 
-            <corners 
+            <corners
                 android:radius="10dp"/>
-            
+
         </shape>
     </item>
     <item
@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <solid android:color="@color/WhiteSmoke" />
-            
-            <corners 
+
+            <corners
                 android:radius="10dp"/>
         </shape>
     </item>
