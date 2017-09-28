@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin_phamacy"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg"
+    android:background="@drawable/backgroud_main"
     tools:context="com.prescription.doctorprescription.activity.WelcomeActivity">
 
     <LinearLayout
@@ -31,23 +31,23 @@
             android:layout_height="3dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="2dp"
-            android:background="@color/White" />
+            android:background="@color/RosyBrown" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-
             <LinearLayout
                 android:id="@+id/linLayAddPatient"
+                android:background="@drawable/layout_background_drawable_menu"
+                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_weight="1">
-
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/creat_pres" />
@@ -57,19 +57,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"
+                    android:textColor="@color/rufaida_red"
                     android:text="ADD\nPATIENT" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linLayReviewPat"
+                android:background="@drawable/layout_background_drawable_menu"
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_weight="1" >
 
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/review_pat" />
@@ -79,66 +82,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"
+                    android:textColor="@color/rufaida_red"
                     android:text="REVIEW\nPATIENT" />
 
             </LinearLayout>
 
         </LinearLayout>
-
-
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal" >
-
-           <LinearLayout
-                android:id="@+id/linLayCreatPres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/creat_pres" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"
-                    android:text="CREATE\nPRESCRIPTION" />
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:id="@+id/linLay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/review_pat" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"
-                    android:text="REVIEW\nPATIENT" />
-
-            </LinearLayout>
-
-        </LinearLayout>-->
 
 
     </LinearLayout>

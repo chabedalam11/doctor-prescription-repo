@@ -2,16 +2,13 @@ package com.prescription.doctorprescription.webService.interfaces;
 
 
 import com.prescription.doctorprescription.webService.collection.AnalysisCollection;
-import com.prescription.doctorprescription.webService.collection.DocClinicInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DesignationInfoCollection;
+import com.prescription.doctorprescription.webService.collection.DocClinicInfoCollection;
 import com.prescription.doctorprescription.webService.collection.DoctorLoginCollection;
 import com.prescription.doctorprescription.webService.collection.MedicineInfoCollection;
 import com.prescription.doctorprescription.webService.collection.MessegeCollection;
 import com.prescription.doctorprescription.webService.collection.PatientCollection;
 import com.prescription.doctorprescription.webService.collection.PrescriptionCollection;
-import com.prescription.doctorprescription.webService.model.DrugMaster;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -164,6 +161,17 @@ public interface PrescriptionApi {
             @Query("t_pat_address") String t_pat_address,@Query("t_pat_mobile") String t_pat_mobile,
             @Query("t_pat_email") String t_pat_email,@Query("t_pat_marital") String t_pat_marital,
             @Query("t_pat_entry_date") String t_pat_entry_date,@Query("t_pat_f_name") String t_pat_f_name
+    );
+
+    //updatePatient
+    @FormUrlEncoded
+    @POST("updatePatient")
+    Call<MessegeCollection> updatePatient(
+            @Field("t_pat_id") String t_pat_id,@Field("t_doc_id") String t_doc_id,
+            @Field("t_pat_name") String t_pat_name,@Field("t_pat_age") String t_pat_age,
+            @Field("t_pat_sex") String t_pat_sex,@Field("t_pat_address") String t_pat_address,
+            @Field("t_pat_mobile") String t_pat_mobile,@Field("t_pat_email") String t_pat_email,
+            @Field("t_pat_marital") String t_pat_marital,@Field("t_pat_f_name") String t_pat_f_name
     );
 
     //getPatientByDocId

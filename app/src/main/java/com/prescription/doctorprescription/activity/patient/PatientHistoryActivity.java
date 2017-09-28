@@ -44,7 +44,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -124,7 +123,7 @@ public class PatientHistoryActivity extends AppCompatActivity implements View.On
         expandableListTitle.add(patient.getT_pat_name());
         patientList.add(patient);
         expandableListDetail.put(patient.getT_pat_name(),patientList);
-        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
+        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail,patient);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
